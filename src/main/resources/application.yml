@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/music
+    username: postgres
+    password: ${PASSWORD}
+    type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+  jpa:
+    open-in-view: false
+server:
+  port: 8089
