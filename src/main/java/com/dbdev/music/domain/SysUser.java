@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,7 +20,6 @@ import java.util.Objects;
 @Slf4j
 // To be updated
 public class SysUser extends BaseEntity implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 427891784792L;
 

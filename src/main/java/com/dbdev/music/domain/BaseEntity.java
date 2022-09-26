@@ -26,12 +26,12 @@ public abstract class BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6187128973897L;
 
+
     @Id
     @GeneratedValue(generator = "myIdGeneratorConfig")
     @GenericGenerator(name = "myIdGeneratorConfig", strategy = "com.dbdev.music.config.MyIdGeneratorConfig")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
-
     @Version
     @Builder.Default()
     private Integer version = 0;
