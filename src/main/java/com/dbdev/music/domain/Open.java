@@ -18,7 +18,7 @@ public class Open extends BaseEntity {
 
     private String albumId;
 
-    private String indexLastPlayedTrack;
+    private int indexLastPlayedTrack;
 
     @Override
     public boolean equals(Object o) {
@@ -26,7 +26,7 @@ public class Open extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Open open = (Open) o;
-        return userId.equals(open.userId) && albumId.equals(open.albumId) && indexLastPlayedTrack.equals(open.indexLastPlayedTrack);
+        return userId.equals(open.userId) && albumId.equals(open.albumId) && indexLastPlayedTrack == open.indexLastPlayedTrack;
     }
 
     @Override
