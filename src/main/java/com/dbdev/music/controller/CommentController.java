@@ -28,10 +28,10 @@ public class CommentController {
     public AjaxResult addComment(@RequestBody CommentInfo info) {
         commentRepository.save(
                 Comment.builder()
-                        .user_id(info.getUser_id())
-                        .album_id(info.getAlbum_id())
+                        .userId(info.getUserId())
+                        .albumId(info.getAlbumId())
                         .context(info.getContext())
-                        .commented_time(info.getCommented_time())
+                        .commentedTime(info.getCommentedTime())
                         .build()
         );
         return AjaxResult.success();

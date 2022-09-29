@@ -14,11 +14,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Open extends BaseEntity {
-    private String user_id;
+    private String userId;
 
-    private String album_id;
+    private String albumId;
 
-    private String index_last_played_track;
+    private String indexLastPlayedTrack;
 
     @Override
     public boolean equals(Object o) {
@@ -26,11 +26,11 @@ public class Open extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Open open = (Open) o;
-        return user_id.equals(open.user_id) && album_id.equals(open.album_id) && index_last_played_track.equals(open.index_last_played_track);
+        return userId.equals(open.userId) && albumId.equals(open.albumId) && indexLastPlayedTrack.equals(open.indexLastPlayedTrack);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), user_id, album_id, index_last_played_track);
+        return Objects.hash(super.hashCode(), userId, albumId, indexLastPlayedTrack);
     }
 }

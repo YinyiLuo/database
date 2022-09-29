@@ -8,5 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BelongToRepository extends JpaRepository<Belong_to, Long> {
-    Optional<Belong_to> findByTrackID(String track_id);
+    Optional<Belong_to> findByTrackId(String trackId);
+
+    Optional<Belong_to> findByAlbumId(String albumId);
 }

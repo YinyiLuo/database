@@ -28,8 +28,8 @@ public class MakeController {
     public AjaxResult addMake(@RequestBody MakeInfo info) {
         makeRepository.save(
                 Make.builder()
-                        .album_id(info.getAlbum_id())
-                        .artist_id(info.getArtist_id())
+                        .albumId(info.getAlbumId())
+                        .artistId(info.getArtistId())
                         .year(info.getYear())
                         .build()
         );

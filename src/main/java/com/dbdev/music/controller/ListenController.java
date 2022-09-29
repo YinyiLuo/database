@@ -28,9 +28,9 @@ public class ListenController {
     public AjaxResult addListen(@RequestBody ListenInfo info) {
         listenRepository.save(
                 Listen.builder()
-                        .user_id(info.getUser_id())
-                        .track_id(info.getTrack_id())
-                        .latest_date_time_playback_began(info.getLatest_date_time_playback_began())
+                        .userId(info.getUserId())
+                        .trackId(info.getTrackId())
+                        .latestDateTimePlaybackBegan(info.getLatestDateTimePlaybackBegan())
                         .build()
         );
         return AjaxResult.success();

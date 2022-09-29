@@ -14,11 +14,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Collect extends BaseEntity {
-    private String user_id;
+    private String userId;
 
-    private String album_id;
+    private String albumId;
 
-    private String collected_time;
+    private String collectedTime;
 
     @Override
     public boolean equals(Object o) {
@@ -26,11 +26,11 @@ public class Collect extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Collect collect = (Collect) o;
-        return user_id.equals(collect.user_id) && album_id.equals(collect.album_id) && collected_time.equals(collect.collected_time);
+        return userId.equals(collect.userId) && albumId.equals(collect.albumId) && collectedTime.equals(collect.collectedTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), user_id, album_id, collected_time);
+        return Objects.hash(super.hashCode(), userId, albumId, collectedTime);
     }
 }

@@ -17,19 +17,19 @@ import java.util.List;
 public class BelongToController {
 
     @Autowired
-    private BelongToRepository belongToRepository;
+    private BelongToRepository belongtoRepository;
 
     @GetMapping("/belong_to/getAllBelongTo")
     public AjaxResult getAllBelongTo() {
-        return AjaxResult.success(belongToRepository.findAll());
+        return AjaxResult.success(belongtoRepository.findAll());
     }
 
     @PostMapping("/belong_to/addBelongTo")
     public AjaxResult addBelongTo(@RequestBody Belong_toInfo info) {
-        belongToRepository.save(
+        belongtoRepository.save(
                 Belong_to.builder()
-                        .track_id(info.getTrack_id())
-                        .album_id(info.getAlbum_id())
+                        .trackId(info.getTrackId())
+                        .albumId(info.getAlbumId())
                         .build()
         );
         return AjaxResult.success();
