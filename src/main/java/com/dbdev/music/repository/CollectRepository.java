@@ -8,5 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CollectRepository extends JpaRepository<Collect, Long> {
-    Optional<Collect> findByUserIDAndAlbumID(String user_id, String album_id);
+    Optional<Collect> findByUserId(String userId);
+
+    Optional<Collect> findByAlbumId(String albumId);
 }

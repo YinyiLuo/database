@@ -8,5 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OpenRepository extends JpaRepository<Open, Long> {
-    Optional<Open> findByUserIDAndAlbumID(String user_id, String album_id);
+    Optional<Open> findByUserId(String userId);
+
+    Optional<Open> findByAlbumId(String albumId);
 }

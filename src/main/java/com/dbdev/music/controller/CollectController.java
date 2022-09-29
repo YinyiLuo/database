@@ -28,9 +28,9 @@ public class CollectController {
     public AjaxResult addCollect(@RequestBody CollectInfo info) {
         collectRepository.save(
                 Collect.builder()
-                        .user_id(info.getUser_id())
-                        .album_id(info.getAlbum_id())
-                        .collected_time(info.getCollected_time())
+                        .userId(info.getUserId())
+                        .albumId(info.getAlbumId())
+                        .collectedTime(info.getCollectedTime())
                         .build()
         );
         return AjaxResult.success();

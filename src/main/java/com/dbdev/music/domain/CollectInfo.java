@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class CollectInfo {
-    private String user_id;
-    private String album_id;
-    private String collected_time;
+    private String userId;
+    private String albumId;
+    private String collectedTime;
 }

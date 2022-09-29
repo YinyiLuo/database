@@ -28,9 +28,9 @@ public class OpenController {
     public AjaxResult addOpen(@RequestBody OpenInfo info) {
         openRepository.save(
                 Open.builder()
-                        .user_id(info.getUser_id())
-                        .album_id(info.getAlbum_id())
-                        .index_last_played_track(info.getIndex_last_played_track())
+                        .userId(info.getUserId())
+                        .albumId(info.getAlbumId())
+                        .indexLastPlayedTrack(info.getIndexLastPlayedTrack())
                         .build()
         );
         return AjaxResult.success();

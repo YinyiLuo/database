@@ -9,8 +9,8 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class CommentInfo {
-    private String user_id;
-    private String album_id;
+    private String userId;
+    private String albumId;
     private String context;
-    private String commented_time;
+    private String commentedTime;
 }

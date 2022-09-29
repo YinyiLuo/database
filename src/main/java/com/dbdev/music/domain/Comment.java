@@ -14,13 +14,13 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment extends BaseEntity {
-    private String user_id;
+    private String userId;
 
-    private String album_id;
+    private String albumId;
 
     private String context;
 
-    private String commented_time;
+    private String commentedTime;
 
     @Override
     public boolean equals(Object o) {
@@ -28,11 +28,11 @@ public class Comment extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Comment comment = (Comment) o;
-        return user_id.equals(comment.user_id) && album_id.equals(comment.album_id) && context.equals(comment.context) && commented_time.equals(comment.commented_time);
+        return Objects.equals(userId, comment.userId) && Objects.equals(albumId, comment.albumId) && Objects.equals(context, comment.context) && Objects.equals(commentedTime, comment.commentedTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), user_id, album_id, commented_time);
+        return Objects.hash(super.hashCode(), userId, albumId, context, commentedTime);
     }
 }
