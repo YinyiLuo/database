@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Track extends BaseEntity {
     private String name;
 
-    private String time_length;
+    private String timeLength;
 
     @Override
     public boolean equals(Object o) {
@@ -24,11 +24,11 @@ public class Track extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Track track = (Track) o;
-        return name.equals(track.name) && time_length.equals(track.time_length);
+        return name.equals(track.name) && timeLength.equals(track.timeLength);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, time_length);
+        return Objects.hash(super.hashCode(), name, timeLength);
     }
 }

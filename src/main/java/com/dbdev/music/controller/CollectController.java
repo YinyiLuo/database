@@ -2,16 +2,13 @@ package com.dbdev.music.controller;
 
 import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Collect;
-import com.dbdev.music.domain.CollectInfo;
+import com.dbdev.music.body.CollectInfo;
 import com.dbdev.music.repository.CollectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class CollectController {

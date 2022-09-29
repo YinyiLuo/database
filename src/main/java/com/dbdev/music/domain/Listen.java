@@ -18,7 +18,7 @@ public class Listen extends BaseEntity {
 
     private String trackId;
 
-    private String latestDateTimePlaybackBegan;
+    private String latestDateTimePlayBackBegan;
 
     @Override
     public boolean equals(Object o) {
@@ -26,11 +26,11 @@ public class Listen extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Listen listen = (Listen) o;
-        return userId.equals(listen.userId) && trackId.equals(listen.trackId) && latestDateTimePlaybackBegan.equals(listen.latestDateTimePlaybackBegan);
+        return userId.equals(listen.userId) && trackId.equals(listen.trackId) && latestDateTimePlayBackBegan.equals(listen.latestDateTimePlayBackBegan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userId, trackId, latestDateTimePlaybackBegan);
+        return Objects.hash(super.hashCode(), userId, trackId, latestDateTimePlayBackBegan);
     }
 }
