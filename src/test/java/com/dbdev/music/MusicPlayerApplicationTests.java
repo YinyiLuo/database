@@ -32,10 +32,10 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void contextLoads() {
-		String password = passwordEncoder.encode("password1");
+		String password = passwordEncoder.encode("another");
 		sysUserRepository.save(
 				SysUser.builder()
-						.name("zhangsan")
+						.name("zhaominkun")
 						.password(password)
 						.role("ROLE_STUDENT")
 						.build()
