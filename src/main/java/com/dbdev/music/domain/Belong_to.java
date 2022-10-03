@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Belong_to extends BaseEntity {
-    private String trackId;
+    private String trackName;
 
-    private String albumId;
+    private String albumName;
 
     @Override
     public boolean equals(Object o) {
@@ -24,11 +24,11 @@ public class Belong_to extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Belong_to belong_to = (Belong_to) o;
-        return trackId.equals(belong_to.trackId) && albumId.equals(belong_to.albumId);
+        return trackName.equals(belong_to.trackName) && albumName.equals(belong_to.albumName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), trackId, albumId);
+        return Objects.hash(super.hashCode(), trackName, albumName);
     }
 }

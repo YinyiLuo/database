@@ -5,10 +5,9 @@ import com.dbdev.music.domain.Collect;
 import com.dbdev.music.body.CollectInfo;
 import com.dbdev.music.repository.CollectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CollectController {
@@ -21,12 +20,26 @@ public class CollectController {
         return AjaxResult.success(collectRepository.findAll());
     }
 
+    @GetMapping("/collect/findCollectByUserName/{userName}/{page}/{size}")
+    public AjaxResult findCollectByUserName(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserName");
+        Page<Collect> byName = collectRepository.findCollectByUserName("%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
+    @GetMapping("/collect/findCollectByAlbumName/{albumName}/{page}/{size}")
+    public AjaxResult findCollectByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByAlbumName");
+        Page<Collect> byName = collectRepository.findCollectByAlbumName("%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
     @PostMapping("/collect/addCollect")
     public AjaxResult addCollect(@RequestBody CollectInfo info) {
         collectRepository.save(
                 Collect.builder()
-                        .userId(info.getUserId())
-                        .albumId(info.getAlbumId())
+                        .userName(info.getUserName())
+                        .albumName(info.getAlbumName())
                         .collectedTime(info.getCollectedTime())
                         .build()
         );

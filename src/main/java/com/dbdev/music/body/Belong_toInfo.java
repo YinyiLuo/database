@@ -9,6 +9,6 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class Belong_toInfo {
-    private String trackId;
-    private String albumId;
+    private String trackName;
+    private String albumName;
 }

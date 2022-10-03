@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Collect extends BaseEntity {
-    private String userId;
+    private String userName;
 
-    private String albumId;
+    private String albumName;
 
     private String collectedTime;
 
@@ -26,11 +26,11 @@ public class Collect extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Collect collect = (Collect) o;
-        return userId.equals(collect.userId) && albumId.equals(collect.albumId) && collectedTime.equals(collect.collectedTime);
+        return userName.equals(collect.userName) && albumName.equals(collect.albumName) && collectedTime.equals(collect.collectedTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userId, albumId, collectedTime);
+        return Objects.hash(super.hashCode(), userName, albumName, collectedTime);
     }
 }

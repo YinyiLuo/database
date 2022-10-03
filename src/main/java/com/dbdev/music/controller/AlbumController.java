@@ -5,10 +5,9 @@ import com.dbdev.music.domain.Album;
 import com.dbdev.music.body.AlbumInfo;
 import com.dbdev.music.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AlbumController {
@@ -19,6 +18,13 @@ public class AlbumController {
     @GetMapping("/album/getAllAlbum")
     public AjaxResult getAllAlbum() {
         return AjaxResult.success(albumRepository.findAll());
+    }
+
+    @GetMapping("/album/findAlbumByName/{name}/{page}/{size}")
+    public AjaxResult findAlbumByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAlbumByName");
+        Page<Album> byName = albumRepository.findAlbumByName("%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
     }
 
     @PostMapping("/album/addAlbum")

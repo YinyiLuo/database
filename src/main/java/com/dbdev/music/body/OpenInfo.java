@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class OpenInfo {
-    private String userId;
-    private String albumId;
+    private String userName;
+    private String albumName;
     private int indexLastPlayedTrack;
 }

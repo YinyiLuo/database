@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment extends BaseEntity {
-    private String userId;
+    private String userName;
 
-    private String albumId;
+    private String albumName;
 
     private String context;
 
@@ -28,11 +28,11 @@ public class Comment extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Comment comment = (Comment) o;
-        return Objects.equals(userId, comment.userId) && Objects.equals(albumId, comment.albumId) && Objects.equals(context, comment.context) && Objects.equals(commentedTime, comment.commentedTime);
+        return Objects.equals(userName, comment.userName) && Objects.equals(albumName, comment.albumName) && Objects.equals(context, comment.context) && Objects.equals(commentedTime, comment.commentedTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userId, albumId, context, commentedTime);
+        return Objects.hash(super.hashCode(), userName, albumName, context, commentedTime);
     }
 }

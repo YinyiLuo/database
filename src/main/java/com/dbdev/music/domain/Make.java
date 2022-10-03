@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Make extends BaseEntity {
-    private String albumId;
+    private String albumName;
 
-    private String artistId;
+    private String artistName;
 
     private String year;
 
@@ -26,11 +26,11 @@ public class Make extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Make make = (Make) o;
-        return albumId.equals(make.albumId) && artistId.equals(make.artistId) && year.equals(make.year);
+        return albumName.equals(make.albumName) && artistName.equals(make.artistName) && year.equals(make.year);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), albumId, artistId, year);
+        return Objects.hash(super.hashCode(), albumName, artistName, year);
     }
 }

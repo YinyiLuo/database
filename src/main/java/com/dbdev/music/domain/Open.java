@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Open extends BaseEntity {
-    private String userId;
+    private String userName;
 
-    private String albumId;
+    private String albumName;
 
     private int indexLastPlayedTrack;
 
@@ -26,11 +26,11 @@ public class Open extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Open open = (Open) o;
-        return userId.equals(open.userId) && albumId.equals(open.albumId) && indexLastPlayedTrack == open.indexLastPlayedTrack;
+        return userName.equals(open.userName) && albumName.equals(open.albumName) && indexLastPlayedTrack == open.indexLastPlayedTrack;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userId, albumId, indexLastPlayedTrack);
+        return Objects.hash(super.hashCode(), userName, albumName, indexLastPlayedTrack);
     }
 }

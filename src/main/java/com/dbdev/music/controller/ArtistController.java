@@ -5,10 +5,9 @@ import com.dbdev.music.domain.Artist;
 import com.dbdev.music.body.ArtistInfo;
 import com.dbdev.music.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ArtistController {
@@ -19,6 +18,13 @@ public class ArtistController {
     @GetMapping("/artist/getAllArtist")
     public AjaxResult getAllArtist() {
         return AjaxResult.success(artistRepository.findAll());
+    }
+
+    @GetMapping("/artist/findArtistByName/{name}/{page}/{size}")
+    public AjaxResult findArtistByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findArtistByName");
+        Page<Artist> byName = artistRepository.findArtistByName( "%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
     }
 
     @PostMapping("/artist/addArtist")

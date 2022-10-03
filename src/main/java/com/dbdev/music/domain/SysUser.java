@@ -24,11 +24,11 @@ public class SysUser extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 427891784792L;
 
-    private String password;
-
     private String email;
 
     private String name;
+
+    private String password;
 
     private String role;
 

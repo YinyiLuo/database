@@ -1,11 +1,15 @@
 package com.dbdev.music;
 
+import com.dbdev.music.domain.Album;
 import com.dbdev.music.domain.SysUser;
+import com.dbdev.music.repository.AlbumRepository;
 import com.dbdev.music.repository.SysUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,8 +23,11 @@ class MusicPlayerApplicationTests {
 	SysUserRepository sysUserRepository;
 
 	@Autowired
+	AlbumRepository albumRepository;
+	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	@SuppressWarnings("all")
 	@Autowired
 	private JavaMailSender mailSender;
 
@@ -30,12 +37,22 @@ class MusicPlayerApplicationTests {
 	@Value("2135246743@qq.com")
 	String to;
 
+	/*@Test
+	void TestPage()
+	{
+		Page<Album> yiranfantexi = albumRepository.findByNameLike("%iranfantexi", PageRequest.of(0, 1));
+		for (Album album : yiranfantexi) {
+			System.out.println(album);
+		}
+		//System.out.println("yiranfantexi");
+	}*/
+
 	@Test
 	void contextLoads() {
-		String password = passwordEncoder.encode("another");
+		String password = passwordEncoder.encode("password1");
 		sysUserRepository.save(
 				SysUser.builder()
-						.name("zhaominkun")
+						.name("zhangsan")
 						.password(password)
 						.role("ROLE_STUDENT")
 						.build()

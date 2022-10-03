@@ -1,6 +1,8 @@
 package com.dbdev.music.repository;
 
 import com.dbdev.music.domain.Belong_to;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BelongToRepository extends JpaRepository<Belong_to, Long> {
-    Optional<Belong_to> findByTrackId(String trackId);
+    Page<Belong_to> findBelong_toByTrackName(String trackName, Pageable pageable);
 
-    Optional<Belong_to> findByAlbumId(String albumId);
+    Page<Belong_to> findBelong_toByAlbumName(String albumName, Pageable pageable);
 }

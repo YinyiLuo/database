@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class MakeInfo {
-    private String albumId;
-    private String artistId;
+    private String albumName;
+    private String artistName;
     private String year;
 }
