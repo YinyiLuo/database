@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailSender {
+public class MyMailSender {
 
     @Value("${spring.mail.username}")
     String from;

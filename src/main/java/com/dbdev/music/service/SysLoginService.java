@@ -20,10 +20,10 @@ public class SysLoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public String login(String username, String password) {
+    public String login(String email, String password) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
+                    new UsernamePasswordAuthenticationToken(email, password)
             );
             LoginUser loginUser = (LoginUser) authentication.getPrincipal();
             return tokenService.createToken(loginUser);

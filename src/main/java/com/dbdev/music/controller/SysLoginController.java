@@ -19,7 +19,7 @@ public class SysLoginController {
 
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody) {
-        String token = sysLoginService.login(loginBody.getUsername(), loginBody.getPassword());
+        String token = sysLoginService.login(loginBody.getEmail(), loginBody.getPassword());
         AjaxResult ajaxResult = AjaxResult.success();
         ajaxResult.put("token", token);
         return ajaxResult;

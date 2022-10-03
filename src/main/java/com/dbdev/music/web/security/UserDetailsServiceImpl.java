@@ -18,8 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private SysUserRepository sysUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SysUser> sysUser = sysUserRepository.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<SysUser> sysUser = sysUserRepository.findByEmail(email);
         if(sysUser.isEmpty()) {
             throw new UsernameNotFoundException("用户名不存在！");
         }

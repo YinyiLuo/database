@@ -40,7 +40,7 @@ public class LoginUser implements UserDetails, Serializable {
 
     @Override @JsonIgnore
     public String getPassword() {
-        return sysUser.getPassword();
+        return sysUser.getEmail();
     }
 
     @Override @JsonIgnore

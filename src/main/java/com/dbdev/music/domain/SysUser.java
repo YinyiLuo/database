@@ -26,6 +26,8 @@ public class SysUser extends BaseEntity implements Serializable {
 
     private String password;
 
+    private String email;
+
     private String name;
 
     private String role;
@@ -36,11 +38,11 @@ public class SysUser extends BaseEntity implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         SysUser sysUser = (SysUser) o;
-        return password.equals(sysUser.password) && name.equals(sysUser.name);
+        return Objects.equals(password, sysUser.password) && Objects.equals(email, sysUser.email) && Objects.equals(name, sysUser.name) && Objects.equals(role, sysUser.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), password, name);
+        return Objects.hash(super.hashCode(), password, email, name, role);
     }
 }

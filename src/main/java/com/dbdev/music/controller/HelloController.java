@@ -16,7 +16,7 @@ public class HelloController {
     @PreAuthorize("hasRole('ROLE_STUDENT')")
     public AjaxResult getHelloWorld() {
         AjaxResult ajaxResult = AjaxResult.success();
-        ajaxResult.put("data", sysUserRepository.findByName("zhangsan").get());
+        ajaxResult.put("data", sysUserRepository.findByEmail("zhangsan").get());
         return ajaxResult;
     }
 }

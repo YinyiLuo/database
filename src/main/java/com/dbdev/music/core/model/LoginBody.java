@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class LoginBody {
-    private String username;
+    private String email;
     private String password;
 }
