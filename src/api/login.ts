@@ -1,5 +1,6 @@
 import request from "../utils/request";
 import {Login} from "../types/login";
+import {Register} from "../types/register";
 
 export function login(email: string, password: string) {
     const data: Login = {
@@ -20,13 +21,3 @@ export function logout() {
     })
 }
 
-export function register(data) {
-    return request({
-        url: '/api/register',
-        headers: {
-            isToken: false
-        },
-        method: 'post',
-        data
-    })
-}
