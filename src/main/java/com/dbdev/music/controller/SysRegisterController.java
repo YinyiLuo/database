@@ -4,6 +4,7 @@ import com.dbdev.music.body.CodeInfo;
 import com.dbdev.music.body.RegisterInfo;
 import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.core.redis.RedisCache;
+import com.dbdev.music.repository.SysUserRepository;
 import com.dbdev.music.service.SysRegisterService;
 import com.dbdev.music.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class SysRegisterController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private SysUserRepository sysUserRepository;
+
     @PostMapping("/code")
     public AjaxResult getCode(@RequestBody CodeInfo codeInfo) {
         if(codeInfo.getEmail() == null || !codeInfo.getEmail().matches(".*@.*\\.com")
@@ -37,7 +41,10 @@ public class SysRegisterController {
         String key = registerInfo.getEmail() + ":" + registerInfo.getMark();
         String code = (String) redisCache.getCacheObject(key);
         if(!registerInfo.getCode().equals(code)) {
-            return AjaxResult.error();
+            return AjaxResult.error("验证码错误！");
+        }
+        if(sysUserRepository.findByEmail(registerInfo.getEmail()).isPresent()) {
+            return AjaxResult.error("该邮箱已被使用！");
         }
         redisCache.deleteObject(key);
         sysUserService.insertUser(
