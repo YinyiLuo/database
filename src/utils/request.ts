@@ -76,7 +76,7 @@ service.interceptors.response.use(res => {
             });
             */
         }
-        return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+        return Promise.reject('认证失败')
     }else if (code === 403) {
 
         removeToken()

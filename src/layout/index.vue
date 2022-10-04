@@ -5,7 +5,12 @@
     </v-navigation-drawer>
     <v-app-bar app>
       <v-toolbar-title>
-        Logo
+        <div class="search">
+          <div style="width: 50%">
+            <v-text-field  append-inner-icon="mdi-send" @click:append-inner="searchClick"/>
+
+          </div>
+        </div>
       </v-toolbar-title>
       <top-bar/>
     </v-app-bar>
@@ -22,8 +27,17 @@
 import Sidebar from "./component/Sidebar.vue";
 import TopBar from "./component/TopBar.vue";
 import AppMain from "./component/AppMain.vue";
+function searchClick() {
+  console.log("hello")
+}
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
 </style>
