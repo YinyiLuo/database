@@ -36,7 +36,7 @@ public class SpringSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/register").anonymous()
+                .antMatchers("/login", "/register", "/code").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler)

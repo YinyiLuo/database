@@ -15,15 +15,12 @@ public class MailSenderHelper {
     @Autowired
     private JavaMailSender mailSender;
 
-    public String send(String to, String subject) {
+    public void send(String to, String code) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(to);
-        message.setSubject(subject);
-        String code = String.valueOf((int)(Math.random() * 999999));
+        message.setSubject("验证信息");
         message.setText("您的验证码为" + code);
-        System.out.println(message);
         mailSender.send(message);
-        return code;
     }
 }
