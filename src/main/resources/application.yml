@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/music
     username: postgres
-    password: ${PASSWORD}
+    password: postgres
     type: com.zaxxer.hikari.HikariDataSource
 
   redis:

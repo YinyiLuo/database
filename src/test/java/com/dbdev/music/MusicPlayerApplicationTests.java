@@ -37,6 +37,20 @@ class MusicPlayerApplicationTests {
 	@Value("2135246743@qq.com")
 	String to;
 
+	@Test
+	void TestEx()
+	{
+		try{
+			System.out.println("a");
+			int i = 1/0;
+			System.out.println("error");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	/*@Test
 	void TestPage()
 	{

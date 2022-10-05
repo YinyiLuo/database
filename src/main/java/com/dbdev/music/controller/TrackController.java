@@ -27,14 +27,15 @@ public class TrackController {
         return AjaxResult.success(byName);
     }
 
-    @PostMapping("/track/addTrack")
-    public AjaxResult addTrack(@RequestBody TrackInfo info) {
-        trackRepository.save(
-                Track.builder()
-                        .name(info.getName())
-                        .timeLength(info.getTimeLength())
-                        .build()
-        );
-        return AjaxResult.success();
-    }
+//    @PostMapping("/track/addTrack")
+//    public AjaxResult addTrack(@RequestBody TrackInfo info) {
+//
+//        trackRepository.save(
+//                Track.builder()
+//                        .name(info.getName())
+//                        .timeLength(info.getTimeLength())
+//                        .build()
+//        );
+//        return AjaxResult.success();
+//    }
 }
