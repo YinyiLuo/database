@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/music
+    url: jdbc:postgresql://${PG_HOST:localhost}:5432/music
     username: postgres
-    password: ${PASSWORD}
+    password: ${PASSWORD:postgres}
     type: com.zaxxer.hikari.HikariDataSource
 
   redis:
