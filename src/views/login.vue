@@ -41,7 +41,7 @@
 
 import useUserStore from "../store/modules/user";
 import {useRouter} from "vue-router";
-import {reactive, ref, toRefs} from "vue";
+import {onMounted, reactive, ref, toRefs} from "vue";
 import myRouter from '../router'
 import Cookies from "js-cookie";
 import {decrypt, encrypt} from "../utils/jsencrypt";
@@ -71,14 +71,14 @@ const {
 const redirect = ref(undefined)
 
 const require = ref([
-  (v: string) => !!v || '请输入用户名'
+  (v: string) => !!v || '请输入内容'
 ])
 
 function mount() {
   getCookie()
 }
 
-mount()
+onMounted(() => mount())
 
 function gotoRegister(value: boolean) {
   myRouter.push({ path: '/register' })

@@ -1,7 +1,7 @@
 <template>
-  <v-list nav>
-    <v-list-item v-for="item in items" prepend-icon="mdi-cursor-default"
-                 :key="item.title" title="item.title" :to="item.to">
+  <v-list nav rounded >
+    <v-list-item color="purple" v-for="item in items" :prepend-icon="item.icon"
+                 :key="item.title" :title="item.title" :to="item.to">
 
     </v-list-item>
   </v-list>
@@ -9,32 +9,37 @@
 
 <script lang="ts" setup>
 import {reactive, toRefs} from "vue";
-
+const items = [
+  {
+    title: '首页',
+    to: '/index',
+    icon: 'mdi-home'
+  },
+  {
+    title: '我的音乐',
+    to: '/myMusic',
+    icon: 'mdi-headphones'
+  },
+  {
+    title: '搜索',
+    to: '/search',
+    icon: 'mdi-magnify'
+  },
+  {
+    title: '浏览记录',
+    to: '/record',
+    icon: 'mdi-history'
+  },
+  {
+    title: '上传',
+    to: '/upload',
+    icon: 'mdi-upload'
+  }
+]
 const state = reactive({
-  items: [
-    {
-      title: '首页',
-      to: '/'
-    },
-    {
-      title: '我的音乐',
-      to: '/'
-    },
-    {
-      title: '搜索',
-      to: '/'
-    },
-    {
-      title: '浏览记录',
-      to: '/'
-    },
-    {
-      title: '上传',
-      to: '/'
-    }
-  ]
+
 })
-const { items } = toRefs(state)
+const { } = toRefs(state)
 </script>
 
 <style scoped>

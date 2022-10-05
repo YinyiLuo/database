@@ -81,7 +81,7 @@ const {
 } = toRefs(state)
 
 const require = ref([
-  (v: string) => !!v || '请输入用户名'
+  (v: string) => !!v || '该输入框不能为空'
 ])
 
 const confirmRequire = ref([

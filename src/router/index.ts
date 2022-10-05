@@ -30,7 +30,31 @@ export const constantRouter: Readonly<RouteRecordRaw[]> = [
                 component: () => import('../views/index.vue'),
                 name: 'Index'
             },
-
+            {
+                path: '/myMusic',
+                component: () => import('../views/myMusic.vue'),
+                name: 'MyMusic'
+            },
+            {
+                path: '/search',
+                component: () => import('../views/search.vue'),
+                name: 'Search'
+            },
+            {
+                path: '/record',
+                component: () => import('../views/record.vue'),
+                name: 'Record'
+            },
+            {
+                path: '/upload',
+                component: () => import('../views/upload.vue'),
+                name: 'Upload'
+            },
+            {
+                path: '/settings',
+                component: () => import('../views/settings.vue'),
+                name: 'Settings'
+            }
         ]
     }
 ]
