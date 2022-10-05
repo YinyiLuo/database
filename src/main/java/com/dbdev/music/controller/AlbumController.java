@@ -20,10 +20,10 @@ public class AlbumController {
         return AjaxResult.success(albumRepository.findAll());
     }
 
-    @GetMapping("/album/findAlbumByName/{name}/{page}/{size}")
-    public AjaxResult findAlbumByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findAlbumByName");
-        Page<Album> byName = albumRepository.findAlbumByName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/album/findAlbumByNameLike/{name}/{page}/{size}")
+    public AjaxResult findAlbumByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAlbumByNameLike");
+        Page<Album> byName = albumRepository.findAlbumByNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 

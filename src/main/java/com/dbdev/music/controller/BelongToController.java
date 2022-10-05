@@ -20,17 +20,17 @@ public class BelongToController {
         return AjaxResult.success(belongtoRepository.findAll());
     }
 
-    @GetMapping("/belong_to/findBelongToByTrackName/{trackName}/{page}/{size}")
-    public AjaxResult findBelongToByTrackName(@PathVariable("trackName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findBelongToByTrackName");
-        Page<Belong_to> byName = belongtoRepository.findBelong_toByTrackName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/belong_to/findBelongToByTrackNameLike/{trackName}/{page}/{size}")
+    public AjaxResult findBelongToByTrackNameLike(@PathVariable("trackName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findBelongToByTrackNameLike");
+        Page<Belong_to> byName = belongtoRepository.findBelong_toByTrackNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
-    @GetMapping("/belong_to/findBelongToByAlbumName/{albumName}/{page}/{size}")
-    public AjaxResult findBelongToByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findBelongToByAlbumName");
-        Page<Belong_to> byName = belongtoRepository.findBelong_toByAlbumName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/belong_to/findBelongToByAlbumNameLike/{albumName}/{page}/{size}")
+    public AjaxResult findBelongToByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findBelongToByAlbumNameLike");
+        Page<Belong_to> byName = belongtoRepository.findBelong_toByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 

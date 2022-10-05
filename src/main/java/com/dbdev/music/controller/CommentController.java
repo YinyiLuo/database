@@ -20,17 +20,17 @@ public class CommentController {
         return AjaxResult.success(commentRepository.findAll());
     }
 
-    @GetMapping("/comment/findCommentByUserName/{userName}/{page}/{size}")
-    public AjaxResult findCommentByUserName(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserName");
-        Page<Comment> byName = commentRepository.findCommentByUserName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/comment/findCommentByUserNameLike/{userName}/{page}/{size}")
+    public AjaxResult findCommentByUserNameLike(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserNameLike");
+        Page<Comment> byName = commentRepository.findCommentByUserNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
-    @GetMapping("/comment/findCommentByAlbumName/{albumName}/{page}/{size}")
-    public AjaxResult findCommentByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCommentByAlbumName");
-        Page<Comment> byName = commentRepository.findCommentByAlbumName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/comment/findCommentByAlbumNameLike/{albumName}/{page}/{size}")
+    public AjaxResult findCommentByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCommentByAlbumNameLike");
+        Page<Comment> byName = commentRepository.findCommentByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 

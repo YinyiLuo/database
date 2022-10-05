@@ -20,10 +20,10 @@ public class SysUserController {
         return AjaxResult.success(sysUserRepository.findAll());
     }
 
-    @GetMapping("/sysuser/findUserByName/{name}/{page}/{size}")
-    public AjaxResult findUserByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findUserByName");
-        Page<SysUser> byName = sysUserRepository.findSysUserByName( "%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/sysuser/findUserByNameLike/{name}/{page}/{size}")
+    public AjaxResult findUserByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findUserByNameLike");
+        Page<SysUser> byName = sysUserRepository.findSysUserByNameLike( "%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 

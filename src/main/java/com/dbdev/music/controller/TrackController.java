@@ -20,21 +20,22 @@ public class TrackController {
         return AjaxResult.success(trackRepository.findAll());
     }
 
-    @GetMapping("/track/findTrackByName/{name}/{page}/{size}")
-    public AjaxResult findTrackByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findTrackByName");
-        Page<Track> byName = trackRepository.findTrackByName( "%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/track/findTrackByNameLike/{name}/{page}/{size}")
+    public AjaxResult findTrackByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findTrackByNameLike");
+        Page<Track> byName = trackRepository.findTrackByNameLike( "%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
-    @PostMapping("/track/addTrack")
-    public AjaxResult addTrack(@RequestBody TrackInfo info) {
-        trackRepository.save(
-                Track.builder()
-                        .name(info.getName())
-                        .timeLength(info.getTimeLength())
-                        .build()
-        );
-        return AjaxResult.success();
-    }
+//    @PostMapping("/track/addTrack")
+//    public AjaxResult addTrack(@RequestBody TrackInfo info) {
+//
+//        trackRepository.save(
+//                Track.builder()
+//                        .name(info.getName())
+//                        .timeLength(info.getTimeLength())
+//                        .build()
+//        );
+//        return AjaxResult.success();
+//    }
 }

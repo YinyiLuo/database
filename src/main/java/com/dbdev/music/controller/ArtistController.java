@@ -20,10 +20,10 @@ public class ArtistController {
         return AjaxResult.success(artistRepository.findAll());
     }
 
-    @GetMapping("/artist/findArtistByName/{name}/{page}/{size}")
-    public AjaxResult findArtistByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findArtistByName");
-        Page<Artist> byName = artistRepository.findArtistByName( "%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/artist/findArtistByNameLike/{name}/{page}/{size}")
+    public AjaxResult findArtistByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findArtistByNameLike");
+        Page<Artist> byName = artistRepository.findArtistByNameLike( "%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 

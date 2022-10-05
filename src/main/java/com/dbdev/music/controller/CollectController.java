@@ -20,17 +20,17 @@ public class CollectController {
         return AjaxResult.success(collectRepository.findAll());
     }
 
-    @GetMapping("/collect/findCollectByUserName/{userName}/{page}/{size}")
-    public AjaxResult findCollectByUserName(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserName");
-        Page<Collect> byName = collectRepository.findCollectByUserName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/collect/findCollectByUserNameLike/{userName}/{page}/{size}")
+    public AjaxResult findCollectByUserNameLike(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserNameLike");
+        Page<Collect> byName = collectRepository.findCollectByUserNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
-    @GetMapping("/collect/findCollectByAlbumName/{albumName}/{page}/{size}")
-    public AjaxResult findCollectByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByAlbumName");
-        Page<Collect> byName = collectRepository.findCollectByAlbumName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/collect/findCollectByAlbumNameLike/{albumName}/{page}/{size}")
+    public AjaxResult findCollectByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByAlbumNameLike");
+        Page<Collect> byName = collectRepository.findCollectByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 

@@ -20,17 +20,17 @@ public class OpenController {
         return AjaxResult.success(openRepository.findAll());
     }
 
-    @GetMapping("/open/findOpenByUserName/{userName}/{page}/{size}")
-    public AjaxResult findOpenByUserName(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserName");
-        Page<Open> byName = openRepository.findOpenByUserName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/open/findOpenByUserNameLike/{userName}/{page}/{size}")
+    public AjaxResult findOpenByUserNameLike(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserNameLike");
+        Page<Open> byName = openRepository.findOpenByUserNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
-    @GetMapping("/open/findOpenByAlbumName/{albumName}/{page}/{size}")
-    public AjaxResult findOpenByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByAlbumName");
-        Page<Open> byName = openRepository.findOpenByAlbumName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/open/findOpenByAlbumNameLike/{albumName}/{page}/{size}")
+    public AjaxResult findOpenByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByAlbumNameLike");
+        Page<Open> byName = openRepository.findOpenByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
