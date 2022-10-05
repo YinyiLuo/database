@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MakeRepository extends JpaRepository<Make, Long> {
-    Page<Make> findMakeByAlbumName(String albumName, Pageable pageable);
+    Page<Make> findMakeByAlbumNameLike(String albumName, Pageable pageable);
 
-    Page<Make> findMakeByArtistName(String artistName, Pageable pageable);
+    Page<Make> findMakeByArtistNameLike(String artistName, Pageable pageable);
 }

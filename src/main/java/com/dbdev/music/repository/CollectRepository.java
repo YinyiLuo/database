@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CollectRepository extends JpaRepository<Collect, Long> {
-    Page<Collect> findCollectByUserName(String userName, Pageable pageable);
+    Page<Collect> findCollectByUserNameLike(String userName, Pageable pageable);
 
-    Page<Collect> findCollectByAlbumName(String albumName, Pageable pageable);
+    Page<Collect> findCollectByAlbumNameLike(String albumName, Pageable pageable);
 }

@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface SysUserRepository extends JpaRepository<SysUser, Long> {
     Optional<SysUser> findByEmail(String email);
 
-    Page<SysUser> findSysUserByName(String name, Pageable pageable);
+    Page<SysUser> findSysUserByNameLike(String name, Pageable pageable);
 }
