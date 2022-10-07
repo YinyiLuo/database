@@ -36,4 +36,12 @@ public class ArtistController {
         );
         return AjaxResult.success();
     }
+
+    //管理员可以删除artist
+    @PostMapping("/artist/removeArtist")
+    public  AjaxResult removeArtist(@RequestParam("id") long id)
+    {
+        artistRepository.deleteById(id);
+        return AjaxResult.success();
+    }
 }

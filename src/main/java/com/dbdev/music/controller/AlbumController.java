@@ -36,4 +36,13 @@ public class AlbumController {
         );
         return AjaxResult.success();
     }
+
+
+    //管理员可以删除album
+    @PostMapping("/album/removeAlbum")
+    public  AjaxResult removeAlbum(@RequestParam("id") long id)
+    {
+        albumRepository.deleteById(id);
+        return AjaxResult.success();
+    }
 }

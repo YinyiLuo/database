@@ -20,26 +20,26 @@ public class BelongToController {
         return AjaxResult.success(belongtoRepository.findAll());
     }
 
-    @GetMapping("/belong_to/findBelongToByTrackNameLike/{trackName}/{page}/{size}")
-    public AjaxResult findBelongToByTrackNameLike(@PathVariable("trackName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findBelongToByTrackNameLike");
-        Page<Belong_to> byName = belongtoRepository.findBelong_toByTrackNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/belong_to/findBelongToByTrackId/{trackId}/{page}/{size}")
+    public AjaxResult findBelongToByTrackId(@PathVariable("trackId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findBelongToByTrackId");
+        Page<Belong_to> byId = belongtoRepository.findBelong_toByTrackId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/belong_to/findBelongToByAlbumNameLike/{albumName}/{page}/{size}")
-    public AjaxResult findBelongToByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findBelongToByAlbumNameLike");
-        Page<Belong_to> byName = belongtoRepository.findBelong_toByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/belong_to/findBelongToByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult findBelongToByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findBelongToByAlbumId");
+        Page<Belong_to> byId = belongtoRepository.findBelong_toByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
     @PostMapping("/belong_to/addBelongTo")
     public AjaxResult addBelongTo(@RequestBody Belong_toInfo info) {
         belongtoRepository.save(
                 Belong_to.builder()
-                        .trackName(info.getTrackName())
-                        .albumName(info.getAlbumName())
+                        .trackId(info.getTrackId())
+                        .albumId(info.getAlbumId())
                         .build()
         );
         return AjaxResult.success();

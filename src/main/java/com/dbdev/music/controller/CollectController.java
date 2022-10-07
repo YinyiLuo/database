@@ -20,29 +20,44 @@ public class CollectController {
         return AjaxResult.success(collectRepository.findAll());
     }
 
-    @GetMapping("/collect/findCollectByUserNameLike/{userName}/{page}/{size}")
-    public AjaxResult findCollectByUserNameLike(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserNameLike");
-        Page<Collect> byName = collectRepository.findCollectByUserNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/collect/findCollectByUserId/{userId}/{page}/{size}")
+    public AjaxResult findCollectByUserId(@PathVariable("userId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserId");
+        Page<Collect> byId = collectRepository.findCollectByUserId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/collect/findCollectByAlbumNameLike/{albumName}/{page}/{size}")
-    public AjaxResult findCollectByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByAlbumNameLike");
-        Page<Collect> byName = collectRepository.findCollectByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/collect/findCollectByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult findCollectByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByAlbumId");
+        Page<Collect> byId = collectRepository.findCollectByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
+    }
+
+    @GetMapping("/collect/findCollectByUserIdAndAlbumId/{userId}/{albumId}/{page}/{size}")
+    public AjaxResult findCollectByUserIdAndAlbumId(@PathVariable("userId") String u_id, @PathVariable("albumId") String a_id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserIdAndAlbumId");
+        Page<Collect> by2Ids = collectRepository.findCollectByUserIdAndAlbumId(u_id, a_id, PageRequest.of(page, size));
+        return AjaxResult.success(by2Ids);
     }
 
     @PostMapping("/collect/addCollect")
     public AjaxResult addCollect(@RequestBody CollectInfo info) {
         collectRepository.save(
                 Collect.builder()
-                        .userName(info.getUserName())
-                        .albumName(info.getAlbumName())
+                        .userId(info.getUserId())
+                        .albumId(info.getAlbumId())
                         .collectedTime(info.getCollectedTime())
                         .build()
         );
+        return AjaxResult.success();
+    }
+
+    //用户可以删除自己的collect
+    @PostMapping("/collect/removeCollect")
+    public AjaxResult removeCollect(@RequestParam("id") long id)
+    {
+        collectRepository.deleteById(id);
         return AjaxResult.success();
     }
 }

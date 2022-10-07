@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class ListenInfo {
-    private String userName;
-    private String trackName;
+    private String userId;
+    private String trackId;
     private String latestDateTimePlayBackBegan;
 }

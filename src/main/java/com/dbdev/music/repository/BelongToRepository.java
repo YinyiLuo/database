@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BelongToRepository extends JpaRepository<Belong_to, Long> {
-    Page<Belong_to> findBelong_toByTrackNameLike(String trackName, Pageable pageable);
+    Page<Belong_to> findBelong_toByTrackId(String trackId, Pageable pageable);
 
-    Page<Belong_to> findBelong_toByAlbumNameLike(String albumName, Pageable pageable);
+    Page<Belong_to> findBelong_toByAlbumId(String albumId, Pageable pageable);
 }
