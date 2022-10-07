@@ -45,4 +45,12 @@ public class CollectController {
         );
         return AjaxResult.success();
     }
+
+    //用户可以删除自己的collect
+    @PostMapping("/collect/removeCollect")
+    public AjaxResult removeCollect()
+    {
+
+        return AjaxResult.success();
+    }
 }

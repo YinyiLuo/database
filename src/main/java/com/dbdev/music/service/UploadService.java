@@ -23,7 +23,7 @@ public class UploadService {
             return info;
             //return Constants.FILE_ERROR;
         }
-        if(file.getContentType().equals("mp3"))
+        if(!file.getContentType().equals("mp3"))
         {
             System.out.println("文件类型不为mp3");
             info.put("status",Constants.FILE_ERROR);
@@ -34,7 +34,7 @@ public class UploadService {
 
         UUID uuid = UUID.randomUUID();
         String filename= uuid.toString();
-        String path="/resource/music/"+filename;
+        String path="/resource/music/"+filename+".mp3";
         File f = new File(path);
 
         if(!f.exists())
