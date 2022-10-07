@@ -34,7 +34,7 @@ public class UploadService {
 
         UUID uuid = UUID.randomUUID();
         String filename= uuid.toString();
-        String path="/resource/music/" + filename + ".mp3";
+        String path="/resource/music/"+filename+".mp3";
         File f = new File(path);
 
         if(!f.exists())

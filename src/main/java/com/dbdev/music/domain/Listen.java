@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Listen extends BaseEntity {
-    private String userName;
+    private String userId;
 
-    private String trackName;
+    private String trackId;
 
     private String latestDateTimePlayBackBegan;
 
@@ -26,11 +26,11 @@ public class Listen extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Listen listen = (Listen) o;
-        return userName.equals(listen.userName) && trackName.equals(listen.trackName) && latestDateTimePlayBackBegan.equals(listen.latestDateTimePlayBackBegan);
+        return userId.equals(listen.userId) && trackId.equals(listen.trackId) && latestDateTimePlayBackBegan.equals(listen.latestDateTimePlayBackBegan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userName, trackName, latestDateTimePlayBackBegan);
+        return Objects.hash(super.hashCode(), userId, trackId, latestDateTimePlayBackBegan);
     }
 }

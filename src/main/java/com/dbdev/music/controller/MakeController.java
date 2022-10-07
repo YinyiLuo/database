@@ -20,26 +20,26 @@ public class MakeController {
         return AjaxResult.success(makeRepository.findAll());
     }
 
-    @GetMapping("/make/findMakeByAlbumNameLike/{albumName}/{page}/{size}")
-    public AjaxResult findMakeByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findMakeByAlbumNameLike");
-        Page<Make> byName = makeRepository.findMakeByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/make/findMakeByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult findMakeByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findMakeByAlbumId");
+        Page<Make> byId = makeRepository.findMakeByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/make/findMakeByArtistNameLike/{artistName}/{page}/{size}")
-    public AjaxResult findMakeByArtistNameLike(@PathVariable("artistName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findMakeByArtistNameLike");
-        Page<Make> byName = makeRepository.findMakeByArtistNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/make/findMakeByArtistId/{artistId}/{page}/{size}")
+    public AjaxResult findMakeByArtistId(@PathVariable("artistId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findMakeByArtistId");
+        Page<Make> byId = makeRepository.findMakeByArtistId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
     @PostMapping("/make/addMake")
     public AjaxResult addMake(@RequestBody MakeInfo info) {
         makeRepository.save(
                 Make.builder()
-                        .albumName(info.getAlbumName())
-                        .artistName(info.getArtistName())
+                        .albumId(info.getAlbumId())
+                        .artistId(info.getArtistId())
                         .year(info.getYear())
                         .build()
         );

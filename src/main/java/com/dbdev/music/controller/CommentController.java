@@ -20,30 +20,45 @@ public class CommentController {
         return AjaxResult.success(commentRepository.findAll());
     }
 
-    @GetMapping("/comment/findCommentByUserNameLike/{userName}/{page}/{size}")
-    public AjaxResult findCommentByUserNameLike(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserNameLike");
-        Page<Comment> byName = commentRepository.findCommentByUserNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/comment/findCommentByUserId/{userId}/{page}/{size}")
+    public AjaxResult findCommentByUserId(@PathVariable("userId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserId");
+        Page<Comment> byId = commentRepository.findCommentByUserId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/comment/findCommentByAlbumNameLike/{albumName}/{page}/{size}")
-    public AjaxResult findCommentByAlbumNameLike(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCommentByAlbumNameLike");
-        Page<Comment> byName = commentRepository.findCommentByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/comment/findCommentByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult findCommentByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCommentByAlbumId");
+        Page<Comment> byId = commentRepository.findCommentByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
+    }
+
+    @GetMapping("/comment/findCommentByUserIdAndAlbumId/{userId}/{albumId}/{page}/{size}")
+    public AjaxResult findCommentByUserIdAndAlbumId(@PathVariable("userId") String u_id, @PathVariable("albumId") String a_id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCommentByUserIdAndAlbumId");
+        Page<Comment> by2Ids = commentRepository.findCommentByUserIdAndAlbumId(u_id, a_id, PageRequest.of(page, size));
+        return AjaxResult.success(by2Ids);
     }
 
     @PostMapping("/comment/addComment")
     public AjaxResult addComment(@RequestBody CommentInfo info) {
         commentRepository.save(
                 Comment.builder()
-                        .userName(info.getUserName())
-                        .albumName(info.getAlbumName())
+                        .userId(info.getUserId())
+                        .albumId(info.getAlbumId())
                         .context(info.getContext())
                         .commentedTime(info.getCommentedTime())
                         .build()
         );
+        return AjaxResult.success();
+    }
+
+    //用户可以删除自己的comment
+    @PostMapping("/comment/removeComment")
+    public AjaxResult removeComment(@RequestParam("id") long id)
+    {
+        commentRepository.deleteById(id);
         return AjaxResult.success();
     }
 }

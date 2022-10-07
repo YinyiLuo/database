@@ -27,6 +27,14 @@ public class TrackController {
         return AjaxResult.success(byName);
     }
 
+    //管理员可以删除track
+    @PostMapping("/track/removeTrack")
+    public  AjaxResult removeTrack(@RequestParam("id") long id)
+    {
+        trackRepository.deleteById(id);
+        return AjaxResult.success();
+    }
+
 //    @PostMapping("/track/addTrack")
 //    public AjaxResult addTrack(@RequestBody TrackInfo info) {
 //
