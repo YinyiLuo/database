@@ -21,16 +21,16 @@ public class OpenController {
     }
 
     @GetMapping("/open/findOpenByUserId/{userId}/{page}/{size}")
-    public AjaxResult findOpenByUserId(@PathVariable("userId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findOpenByUserId(@PathVariable("userId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findCollectByUserId");
-        Page<Open> byId = openRepository.findOpenByUserId(id, PageRequest.of(page, size));
+        var byId = openRepository.findByUserId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
     @GetMapping("/open/findOpenByAlbumId/{albumId}/{page}/{size}")
-    public AjaxResult findOpenByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findOpenByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findCollectByAlbumId");
-        Page<Open> byId = openRepository.findOpenByAlbumId(id, PageRequest.of(page, size));
+        var byId = openRepository.findByAlbumId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 

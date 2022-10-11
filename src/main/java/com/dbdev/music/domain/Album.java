@@ -20,9 +20,9 @@ import java.util.Objects;
 public class Album extends BaseEntity {
     private String name;
 
-    @CreatedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime last_time_played;
+//    @CreatedDate
+//    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime last_time_played;
 
     @Override
     public boolean equals(Object o) {

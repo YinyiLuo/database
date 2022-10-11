@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Open extends BaseEntity {
-    private String userId;
+    private Long userId;
 
-    private String albumId;
+    private Long albumId;
 
     private int indexLastPlayedTrack;
 

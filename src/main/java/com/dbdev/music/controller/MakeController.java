@@ -21,16 +21,16 @@ public class MakeController {
     }
 
     @GetMapping("/make/findMakeByAlbumId/{albumId}/{page}/{size}")
-    public AjaxResult findMakeByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findMakeByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findMakeByAlbumId");
-        Page<Make> byId = makeRepository.findMakeByAlbumId(id, PageRequest.of(page, size));
+        var byId = makeRepository.findByAlbumId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
     @GetMapping("/make/findMakeByArtistId/{artistId}/{page}/{size}")
-    public AjaxResult findMakeByArtistId(@PathVariable("artistId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findMakeByArtistId(@PathVariable("artistId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findMakeByArtistId");
-        Page<Make> byId = makeRepository.findMakeByArtistId(id, PageRequest.of(page, size));
+        var byId = makeRepository.findByArtistId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 

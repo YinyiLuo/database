@@ -4,12 +4,13 @@ import lombok.*;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter
 @EqualsAndHashCode
 public class MakeInfo {
-    private String albumId;
-    private String artistId;
+    private Long albumId;
+    private Long artistId;
     private String year;
 }

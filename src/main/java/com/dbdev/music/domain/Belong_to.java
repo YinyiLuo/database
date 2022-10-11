@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Belong_to extends BaseEntity {
-    private String trackId;
+    private Long trackId;
 
-    private String albumId;
+    private Long albumId;
 
     @Override
     public boolean equals(Object o) {

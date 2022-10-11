@@ -27,9 +27,9 @@ public class Track extends BaseEntity {
 
     private String timeLength;
 
-    @CreatedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime latest_time_played;
+//    @CreatedDate
+//    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime latest_time_played;
 
     @Override
     public boolean equals(Object o) {

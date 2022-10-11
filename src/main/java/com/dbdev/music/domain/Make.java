@@ -14,9 +14,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Make extends BaseEntity {
-    private String albumId;
+    private Long albumId;
 
-    private String artistId;
+    private Long artistId;
 
     private String year;
 

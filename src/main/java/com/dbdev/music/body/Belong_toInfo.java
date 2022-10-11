@@ -4,11 +4,12 @@ import lombok.*;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter
 @EqualsAndHashCode
 public class Belong_toInfo {
-    private String trackId;
-    private String albumId;
+    private Long trackId;
+    private Long albumId;
 }
