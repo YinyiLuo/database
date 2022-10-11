@@ -4,13 +4,14 @@ import lombok.*;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter
 @EqualsAndHashCode
 public class CommentInfo {
-    private String userId;
-    private String albumId;
+    private Long userId;
+    private Long albumId;
     private String context;
     private String commentedTime;
 }

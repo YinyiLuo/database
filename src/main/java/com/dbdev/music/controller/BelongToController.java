@@ -21,16 +21,16 @@ public class BelongToController {
     }
 
     @GetMapping("/belong_to/findBelongToByTrackId/{trackId}/{page}/{size}")
-    public AjaxResult findBelongToByTrackId(@PathVariable("trackId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findBelongToByTrackId(@PathVariable("trackId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findBelongToByTrackId");
-        Page<Belong_to> byId = belongtoRepository.findBelong_toByTrackId(id, PageRequest.of(page, size));
+        var byId = belongtoRepository.findByTrackId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
     @GetMapping("/belong_to/findBelongToByAlbumId/{albumId}/{page}/{size}")
-    public AjaxResult findBelongToByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findBelongToByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findBelongToByAlbumId");
-        Page<Belong_to> byId = belongtoRepository.findBelong_toByAlbumId(id, PageRequest.of(page, size));
+        var byId = belongtoRepository.findByAlbumId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 

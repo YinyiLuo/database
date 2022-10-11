@@ -4,12 +4,13 @@ import lombok.*;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter
 @EqualsAndHashCode
 public class ListenInfo {
-    private String userId;
-    private String trackId;
-    private String latestDateTimePlayBackBegan;
+    private Long userId;
+    private Long trackId;
+    private String latestDateTimePlaybackBegan;
 }

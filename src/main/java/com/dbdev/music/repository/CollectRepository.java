@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CollectRepository extends JpaRepository<Collect, Long> {
-    Page<Collect> findCollectByUserId(String userId, Pageable pageable);
+    Page<List<Collect>> findByUserId(Long userId, Pageable pageable);
 
-    Page<Collect> findCollectByAlbumId(String albumId, Pageable pageable);
+    Page<List<Collect>> findByAlbumId(Long albumId, Pageable pageable);
 
-    Page<Collect> findCollectByUserIdAndAlbumId(String userId, String albumId, Pageable pageable);
+    Page<Collect> findByUserIdAndAlbumId(Long userId, Long albumId, Pageable pageable);
 }

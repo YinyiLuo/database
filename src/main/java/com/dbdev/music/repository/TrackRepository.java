@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface TrackRepository extends JpaRepository<Track, Long> {
     // Page<Track> findByName(String name, Pageable pageable);
 
-    Page<Track> findTrackByNameLike(String name, Pageable pageable);
+    Page<List<Track>> findByNameLike(String name, Pageable pageable);
 }

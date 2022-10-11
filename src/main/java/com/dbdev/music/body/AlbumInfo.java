@@ -2,8 +2,12 @@ package com.dbdev.music.body;
 
 import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter

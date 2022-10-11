@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ListenRepository extends JpaRepository<Listen, Long> {
-    Page<Listen> findListenByUserId(String userId, Pageable pageable);
+    Page<List<Listen>> findByUserId(Long userId, Pageable pageable);
 
-    Page<Listen> findListenByTrackId(String trackId, Pageable pageable);
+    Page<List<Listen>> findByTrackId(Long trackId, Pageable pageable);
 }

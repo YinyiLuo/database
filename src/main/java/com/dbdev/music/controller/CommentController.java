@@ -21,23 +21,23 @@ public class CommentController {
     }
 
     @GetMapping("/comment/findCommentByUserId/{userId}/{page}/{size}")
-    public AjaxResult findCommentByUserId(@PathVariable("userId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findCommentByUserId(@PathVariable("userId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findCollectByUserId");
-        Page<Comment> byId = commentRepository.findCommentByUserId(id, PageRequest.of(page, size));
+        var byId = commentRepository.findByUserId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
     @GetMapping("/comment/findCommentByAlbumId/{albumId}/{page}/{size}")
-    public AjaxResult findCommentByAlbumId(@PathVariable("albumId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findCommentByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findCommentByAlbumId");
-        Page<Comment> byId = commentRepository.findCommentByAlbumId(id, PageRequest.of(page, size));
+        var byId = commentRepository.findByAlbumId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
     @GetMapping("/comment/findCommentByUserIdAndAlbumId/{userId}/{albumId}/{page}/{size}")
-    public AjaxResult findCommentByUserIdAndAlbumId(@PathVariable("userId") String u_id, @PathVariable("albumId") String a_id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findCommentByUserIdAndAlbumId(@PathVariable("userId") Long u_id, @PathVariable("albumId") Long a_id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findCommentByUserIdAndAlbumId");
-        Page<Comment> by2Ids = commentRepository.findCommentByUserIdAndAlbumId(u_id, a_id, PageRequest.of(page, size));
+        Page<Comment> by2Ids = commentRepository.findByUserIdAndAlbumId(u_id, a_id, PageRequest.of(page, size));
         return AjaxResult.success(by2Ids);
     }
 
@@ -55,8 +55,8 @@ public class CommentController {
     }
 
     //用户可以删除自己的comment
-    @PostMapping("/comment/removeComment")
-    public AjaxResult removeComment(@RequestParam("id") long id)
+    @DeleteMapping("/comment/removeComment/{id}")
+    public AjaxResult removeComment(@PathVariable("id") Long id)
     {
         commentRepository.deleteById(id);
         return AjaxResult.success();

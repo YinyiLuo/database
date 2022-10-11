@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OpenRepository extends JpaRepository<Open, Long> {
-    Page<Open> findOpenByUserId(String userId, Pageable pageable);
+    Page<List<Open>> findByUserId(Long userId, Pageable pageable);
 
-    Page<Open> findOpenByAlbumId(String albumId, Pageable pageable);
+    Page<List<Open>> findByAlbumId(Long albumId, Pageable pageable);
 }

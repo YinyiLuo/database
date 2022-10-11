@@ -21,16 +21,16 @@ public class ListenController {
     }
 
     @GetMapping("/listen/findListenByUserId/{userId}/{page}/{size}")
-    public AjaxResult findListenByUserId(@PathVariable("userId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findListenByUserId(@PathVariable("userId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findListenByUserId");
-        Page<Listen> byId = listenRepository.findListenByUserId(id, PageRequest.of(page, size));
+        var byId = listenRepository.findByUserId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
     @GetMapping("/listen/findListenByTrackId/{trackId}/{page}/{size}")
-    public AjaxResult findListenByTrackId(@PathVariable("trackId") String id, @PathVariable("page") int page, @PathVariable("size") int size) {
+    public AjaxResult findListenByTrackId(@PathVariable("trackId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findListenByTrackId");
-        Page<Listen> byId = listenRepository.findListenByTrackId(id, PageRequest.of(page, size));
+        var byId = listenRepository.findByTrackId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
 
@@ -40,7 +40,7 @@ public class ListenController {
                 Listen.builder()
                         .userId(info.getUserId())
                         .trackId(info.getTrackId())
-                        .latestDateTimePlayBackBegan(info.getLatestDateTimePlayBackBegan())
+                        .latestDateTimePlaybackBegan(info.getLatestDateTimePlaybackBegan())
                         .build()
         );
         return AjaxResult.success();
