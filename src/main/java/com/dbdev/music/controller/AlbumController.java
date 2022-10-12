@@ -20,10 +20,10 @@ public class AlbumController {
         return AjaxResult.success(albumRepository.findAll());
     }
 
-    @GetMapping("/album/findAlbumByName/{name}/{page}/{size}")
-    public AjaxResult findAlbumByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findAlbumByName");
-        Page<Album> byName = albumRepository.findAlbumByName("%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/album/findAlbumsByNameLike/{name}/{page}/{size}")
+    public AjaxResult findAlbumsByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAlbumsByNameLike");
+        var byName = albumRepository.findByNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
@@ -39,8 +39,8 @@ public class AlbumController {
 
 
     //管理员可以删除album
-    @PostMapping("/album/removeAlbum")
-    public  AjaxResult removeAlbum(@RequestParam("id") long id)
+    @DeleteMapping("/album/removeAlbum/{id}")
+    public  AjaxResult removeAlbum(@PathVariable("id") Long id)
     {
         albumRepository.deleteById(id);
         return AjaxResult.success();

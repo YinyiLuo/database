@@ -9,6 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
+
 @RestController
 public class TrackController {
 
@@ -20,22 +24,29 @@ public class TrackController {
         return AjaxResult.success(trackRepository.findAll());
     }
 
-    @GetMapping("/track/findTrackByName/{name}/{page}/{size}")
-    public AjaxResult findTrackByName(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findTrackByName");
-        Page<Track> byName = trackRepository.findTrackByName( "%" + name + "%", PageRequest.of(page, size));
+    @GetMapping("/track/findTracksByNameLike/{name}/{page}/{size}")
+    public AjaxResult findTracksByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findTracksByNameLike");
+        var byName = trackRepository.findByNameLike( "%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
-//    @PostMapping("/track/addTrack")
-//    public AjaxResult addTrack(@RequestBody TrackInfo info) {
-//
-//        trackRepository.save(
-//                Track.builder()
-//                        .name(info.getName())
-//                        .timeLength(info.getTimeLength())
-//                        .build()
-//        );
-//        return AjaxResult.success();
-//    }
+
+    //管理员可以删除track
+    @DeleteMapping("/track/removeTrack/{id}")
+    public  AjaxResult removeTrack(@PathVariable("id") Long id)
+    {
+        trackRepository.deleteById(id);
+        return AjaxResult.success();
+    }
+
+    //获取歌曲的url
+    @GetMapping("/track/getUrl/{id}")
+    public String getUrl(@PathVariable("id") Long id)
+    {
+        Optional<Track> byId = trackRepository.findById(id);
+        Track track = byId.get();
+        //路径可能会有问题
+        return "/resource/music/"+track.getFile()+".mp3";
+    }
 }

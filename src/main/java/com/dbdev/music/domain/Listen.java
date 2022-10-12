@@ -14,11 +14,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Listen extends BaseEntity {
-    private String userName;
+    private Long userId;
 
-    private String trackName;
+    private Long trackId;
 
-    private String latestDateTimePlayBackBegan;
+    private String latestDateTimePlaybackBegan;
 
     @Override
     public boolean equals(Object o) {
@@ -26,11 +26,11 @@ public class Listen extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Listen listen = (Listen) o;
-        return userName.equals(listen.userName) && trackName.equals(listen.trackName) && latestDateTimePlayBackBegan.equals(listen.latestDateTimePlayBackBegan);
+        return userId.equals(listen.userId) && trackId.equals(listen.trackId) && latestDateTimePlaybackBegan.equals(listen.latestDateTimePlaybackBegan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userName, trackName, latestDateTimePlayBackBegan);
+        return Objects.hash(super.hashCode(), userId, trackId, latestDateTimePlaybackBegan);
     }
 }

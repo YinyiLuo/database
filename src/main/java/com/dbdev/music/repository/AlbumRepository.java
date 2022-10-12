@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface AlbumRepository extends JpaRepository<Album, Long> {
     // Page<Album> findByName(String name, Pageable pageable);
 
-    Page<Album> findAlbumByName(String name, Pageable pageable);
+    Page<List<Album>> findByNameLike(String name, Pageable pageable);
 }

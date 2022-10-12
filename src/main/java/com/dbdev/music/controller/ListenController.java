@@ -20,27 +20,27 @@ public class ListenController {
         return AjaxResult.success(listenRepository.findAll());
     }
 
-    @GetMapping("/listen/findListenByUserName/{userName}/{page}/{size}")
-    public AjaxResult findListenByUserName(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findListenByUserName");
-        Page<Listen> byName = listenRepository.findListenByUserName("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/listen/findListenByUserId/{userId}/{page}/{size}")
+    public AjaxResult findListenByUserId(@PathVariable("userId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findListenByUserId");
+        var byId = listenRepository.findByUserId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/listen/findListenByTrackName/{trackName}/{page}/{size}")
-    public AjaxResult findListenByTrackName(@PathVariable("trackName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findListenByTrackName");
-        Page<Listen> byName = listenRepository.findListenByTrackName("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/listen/findListenByTrackId/{trackId}/{page}/{size}")
+    public AjaxResult findListenByTrackId(@PathVariable("trackId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findListenByTrackId");
+        var byId = listenRepository.findByTrackId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
     @PostMapping("/listen/addListen")
     public AjaxResult addListen(@RequestBody ListenInfo info) {
         listenRepository.save(
                 Listen.builder()
-                        .userName(info.getUserName())
-                        .trackName(info.getTrackName())
-                        .latestDateTimePlayBackBegan(info.getLatestDateTimePlayBackBegan())
+                        .userId(info.getUserId())
+                        .trackId(info.getTrackId())
+                        .latestDateTimePlaybackBegan(info.getLatestDateTimePlaybackBegan())
                         .build()
         );
         return AjaxResult.success();

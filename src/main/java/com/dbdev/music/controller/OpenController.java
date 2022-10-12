@@ -20,26 +20,26 @@ public class OpenController {
         return AjaxResult.success(openRepository.findAll());
     }
 
-    @GetMapping("/open/findOpenByUserName/{userName}/{page}/{size}")
-    public AjaxResult findOpenByUserName(@PathVariable("userName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserName");
-        Page<Open> byName = openRepository.findOpenByUserName("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/open/findOpenByUserId/{userId}/{page}/{size}")
+    public AjaxResult findOpenByUserId(@PathVariable("userId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByUserId");
+        var byId = openRepository.findByUserId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/open/findOpenByAlbumName/{albumName}/{page}/{size}")
-    public AjaxResult findOpenByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByAlbumName");
-        Page<Open> byName = openRepository.findOpenByAlbumName("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/open/findOpenByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult findOpenByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findCollectByAlbumId");
+        var byId = openRepository.findByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
     @PostMapping("/open/addOpen")
     public AjaxResult addOpen(@RequestBody OpenInfo info) {
         openRepository.save(
                 Open.builder()
-                        .userName(info.getUserName())
-                        .albumName(info.getAlbumName())
+                        .userId(info.getUserId())
+                        .albumId(info.getAlbumId())
                         .indexLastPlayedTrack(info.getIndexLastPlayedTrack())
                         .build()
         );

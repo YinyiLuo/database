@@ -20,26 +20,26 @@ public class BelongToController {
         return AjaxResult.success(belongtoRepository.findAll());
     }
 
-    @GetMapping("/belong_to/findBelongToByTrackName/{trackName}/{page}/{size}")
-    public AjaxResult findBelongToByTrackName(@PathVariable("trackName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findBelongToByTrackName");
-        Page<Belong_to> byName = belongtoRepository.findBelong_toByTrackName("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/belong_to/findBelongToByTrackId/{trackId}/{page}/{size}")
+    public AjaxResult findBelongToByTrackId(@PathVariable("trackId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findBelongToByTrackId");
+        var byId = belongtoRepository.findByTrackId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
-    @GetMapping("/belong_to/findBelongToByAlbumName/{albumName}/{page}/{size}")
-    public AjaxResult findBelongToByAlbumName(@PathVariable("albumName") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findBelongToByAlbumName");
-        Page<Belong_to> byName = belongtoRepository.findBelong_toByAlbumName("%" + name + "%", PageRequest.of(page, size));
-        return AjaxResult.success(byName);
+    @GetMapping("/belong_to/findBelongToByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult findBelongToByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findBelongToByAlbumId");
+        var byId = belongtoRepository.findByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byId);
     }
 
     @PostMapping("/belong_to/addBelongTo")
     public AjaxResult addBelongTo(@RequestBody Belong_toInfo info) {
         belongtoRepository.save(
                 Belong_to.builder()
-                        .trackName(info.getTrackName())
-                        .albumName(info.getAlbumName())
+                        .trackId(info.getTrackId())
+                        .albumId(info.getAlbumId())
                         .build()
         );
         return AjaxResult.success();

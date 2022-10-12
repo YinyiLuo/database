@@ -4,12 +4,13 @@ import lombok.*;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter
 @EqualsAndHashCode
 public class OpenInfo {
-    private String userName;
-    private String albumName;
+    private Long userId;
+    private Long albumId;
     private int indexLastPlayedTrack;
 }
