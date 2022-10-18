@@ -1,12 +1,8 @@
 package com.dbdev.music.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
-
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -17,20 +13,22 @@ import java.util.Objects;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Album extends BaseEntity {
-    private String name;
+public class BelongTo extends BaseEntity {
+    private Long trackId;
+
+    private Long albumId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Album album = (Album) o;
-        return name.equals(album.name);
+        BelongTo belong_to = (BelongTo) o;
+        return trackId.equals(belong_to.trackId) && albumId.equals(belong_to.albumId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name);
+        return Objects.hash(super.hashCode(), trackId, albumId);
     }
 }

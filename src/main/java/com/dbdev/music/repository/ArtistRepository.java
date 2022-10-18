@@ -1,5 +1,6 @@
 package com.dbdev.music.repository;
 
+import com.dbdev.music.domain.Album;
 import com.dbdev.music.domain.Artist;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,4 +14,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
     // Page<Artist> findByName(String name, Pageable pageable);
 
     Page<List<Artist>> findByNameLike(String name, Pageable pageable);
+
+
 }

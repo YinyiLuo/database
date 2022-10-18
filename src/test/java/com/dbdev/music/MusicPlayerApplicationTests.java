@@ -4,6 +4,8 @@ import com.dbdev.music.domain.Album;
 import com.dbdev.music.domain.SysUser;
 import com.dbdev.music.repository.AlbumRepository;
 import com.dbdev.music.repository.SysUserRepository;
+import com.dbdev.music.repository.TrackRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +26,15 @@ class MusicPlayerApplicationTests {
 
 	@Autowired
 	AlbumRepository albumRepository;
+
+	@Autowired
+	TrackRepository trackRepository;
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@SuppressWarnings("all")
 	@Autowired
@@ -82,5 +91,15 @@ class MusicPlayerApplicationTests {
 		message.setText("您的验证码为123456");
 		System.out.println(message);
 		mailSender.send(message);
+	}
+
+	@Test
+	void testNew() throws Exception{
+//		System.out.println(objectMapper.writeValueAsString(
+//				(albumRepository.findAlbumsByArtistId(1L, PageRequest.of(0, 1)))));
+//		System.out.println(objectMapper.writeValueAsString(
+//				trackRepository.findTracksByAlbumId(1L, PageRequest.of(0,1))));
+		System.out.println(objectMapper.writeValueAsString(
+				trackRepository.findTracksByArtistNameLike("%杰伦%", PageRequest.of(0,3))));
 	}
 }

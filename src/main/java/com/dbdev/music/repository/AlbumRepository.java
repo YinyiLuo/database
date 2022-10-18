@@ -13,4 +13,10 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
     // Page<Album> findByName(String name, Pageable pageable);
 
     Page<List<Album>> findByNameLike(String name, Pageable pageable);
+    Album findByName(String name);
+
+    @Query("select al from Album al join Make mk on al.id=mk.albumId where mk.artistId=?1")
+    Page<List<Album>> findAlbumsByArtistId(Long artistId, Pageable pageable);
+
+
 }

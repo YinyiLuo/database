@@ -1,11 +1,10 @@
 package com.dbdev.music.controller;
 
 import com.dbdev.music.core.AjaxResult;
-import com.dbdev.music.domain.Belong_to;
+import com.dbdev.music.domain.BelongTo;
 import com.dbdev.music.body.Belong_toInfo;
 import com.dbdev.music.repository.BelongToRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +36,7 @@ public class BelongToController {
     @PostMapping("/belong_to/addBelongTo")
     public AjaxResult addBelongTo(@RequestBody Belong_toInfo info) {
         belongtoRepository.save(
-                Belong_to.builder()
+                BelongTo.builder()
                         .trackId(info.getTrackId())
                         .albumId(info.getAlbumId())
                         .build()

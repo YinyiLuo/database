@@ -4,7 +4,6 @@ import lombok.*;
 
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Setter
 @Getter
@@ -12,5 +11,4 @@ import lombok.*;
 public class TrackInfo {
     private String name;
     private String timeLength;
-    private String role;//管理员还是普通用户的
 }

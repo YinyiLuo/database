@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class CodeInfo {
     private String email;
     private String mark;
