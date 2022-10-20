@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/music
+    username: postgres
+    password: ${PASSWORD}
+    type: com.zaxxer.hikari.HikariDataSource
+
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+  jpa:
+    open-in-view: false
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: aq25863729@163.com
+    password: ODUXXUEIXBUHYSBT
+    port: 994
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+server:
+  port: 8089
+token:
+  secret: jiU*7?KOji9834
+  header: Authorization
+  expireTime: 30
