@@ -13,8 +13,9 @@ import java.util.Optional;
 public interface TrackRepository extends JpaRepository<Track, Long> {
     Page<List<Track>> findByNameLike(String name, Pageable pageable);
 
-    @Query("select tc from Track tc join BelongTo bl on tc.id=bl.trackId where bl.albumId=?1")
-    Page<List<Track>> findTracksByAlbumId(Long albumId, Pageable pageable);
+    @Query("select tc from Track tc join BelongTo bl on tc.id=bl.trackId " +
+            "join Album al on al.id=bl.albumId where al.name like ?1")
+    Page<List<Track>> findTracksByAlbumNameLike(String name, Pageable pageable);
 
     @Query("select tc from Track tc join BelongTo bl on tc.id=bl.trackId " +
             "join Album al on al.id=bl.albumId join Make mk on al.id=mk.albumId " +

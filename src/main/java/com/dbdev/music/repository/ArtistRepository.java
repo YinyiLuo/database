@@ -15,5 +15,12 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     Page<List<Artist>> findByNameLike(String name, Pageable pageable);
 
+    @Query("select ar from Artist ar join Make mk on ar.id=mk.artistId " +
+            "join Album al on al.id=mk.albumId where al.name like ?1")
+    Page<Artist> findByAlbumNameLike(String name, Pageable pageable);
 
+    @Query("select ar from Artist ar join Make mk on ar.id=mk.artistId " +
+            "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
+            "join Track tc on tc.id=bl.trackId where tc.name like ?1")
+    Page<Artist> findByTrackNameLike(String name, Pageable pageable);
 }

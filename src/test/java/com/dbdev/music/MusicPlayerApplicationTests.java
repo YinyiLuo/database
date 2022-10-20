@@ -99,7 +99,7 @@ class MusicPlayerApplicationTests {
 //				(albumRepository.findAlbumsByArtistId(1L, PageRequest.of(0, 1)))));
 //		System.out.println(objectMapper.writeValueAsString(
 //				trackRepository.findTracksByAlbumId(1L, PageRequest.of(0,1))));
-		System.out.println(objectMapper.writeValueAsString(
-				trackRepository.findTracksByArtistNameLike("%杰伦%", PageRequest.of(0,3))));
+//		System.out.println(objectMapper.writeValueAsString(
+//				trackRepository.findTracksByArtistNameLike("%杰伦%", PageRequest.of(0,3))));
 	}
 }

@@ -27,6 +27,20 @@ public class ArtistController {
         return AjaxResult.success(byName);
     }
 
+    @GetMapping("/artist/findByAlbumNameLike/{name}/{page}/{size}")
+    public AjaxResult findByAlbumNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findByAlbumNameLike");
+        var byName = artistRepository.findByAlbumNameLike( "%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
+    @GetMapping("/artist/findByTrackNameLike/{name}/{page}/{size}")
+    public AjaxResult findByTrackNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findByTrackNameLike");
+        var byName = artistRepository.findByTrackNameLike( "%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
     @PostMapping("/artist/addArtist")
     public AjaxResult addArtist(@RequestBody ArtistInfo info) {
         artistRepository.save(

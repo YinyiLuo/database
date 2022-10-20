@@ -28,6 +28,20 @@ public class AlbumController {
         return AjaxResult.success(byName);
     }
 
+    @GetMapping("/album/findAlbumsByArtistNameLike/{name}/{page}/{size}")
+    public AjaxResult findAlbumsByArtistNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAlbumsByArtistNameLike");
+        var byName = albumRepository.findAlbumsByArtistNameLike("%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
+    @GetMapping("/album/findByTrackNameLike/{name}/{page}/{size}")
+    public AjaxResult findByTrackNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findByTrackNameLike");
+        var byName = albumRepository.findByTrackNameLike( "%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
     @PostMapping("/album/addAlbum")
     public AjaxResult addAlbum(@RequestBody AlbumInfo info) {
         albumRepository.save(

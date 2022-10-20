@@ -32,6 +32,19 @@ public class TrackController {
         return AjaxResult.success(byName);
     }
 
+    @GetMapping("/track/findTracksByAlbumNameLike/{name}/{page}/{size}")
+    public AjaxResult findTracksByAlbumNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findTracksByAlbumNameLike");
+        var byName = trackRepository.findTracksByAlbumNameLike("%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
+    @GetMapping("/track/findTracksByArtistNameLike/{name}/{page}/{size}")
+    public AjaxResult findTracksByArtistNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findTracksByArtistNameLike");
+        var byName = trackRepository.findTracksByArtistNameLike("%" + name + "%", PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
 
     //管理员可以删除track
     @DeleteMapping("/track/removeTrack/{id}")
