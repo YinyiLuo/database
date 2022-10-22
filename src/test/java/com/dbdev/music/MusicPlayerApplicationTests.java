@@ -16,6 +16,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
@@ -49,15 +50,14 @@ class MusicPlayerApplicationTests {
 	@Test
 	void TestEx()
 	{
-		try{
-			System.out.println("a");
-			int i = 1/0;
-			System.out.println("error");
-		}
-		catch (Exception e)
+		String uploadPath = "src/main/resources/static/music";
+		File uploadDir = new File(uploadPath);
+		if(!uploadDir.exists())
 		{
-			e.printStackTrace();
+			System.out.println("不存在");
+			System.out.println(uploadDir.mkdir());
 		}
+		System.out.println("hello");
 	}
 
 	/*@Test
