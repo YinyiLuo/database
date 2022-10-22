@@ -7,6 +7,7 @@ import com.dbdev.music.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.PostUpdate;
@@ -20,9 +21,9 @@ public class TrackController {
     @Autowired
     private TrackRepository trackRepository;
 
-    @GetMapping("/track/getAllTrack")
-    public AjaxResult getAllTrack() {
-        return AjaxResult.success(trackRepository.findAll());
+    @GetMapping("/track/getAllTrack/{page}/{size}")
+    public AjaxResult getAllTrack(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return AjaxResult.success(trackRepository.findAll(PageRequest.of(page, size)));
     }
 
     @GetMapping("/track/findTracksByNameLike/{name}/{page}/{size}")

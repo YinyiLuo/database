@@ -16,9 +16,9 @@ public class AlbumController {
     @Autowired
     private AlbumRepository albumRepository;
 
-    @GetMapping("/album/getAllAlbum")
-    public AjaxResult getAllAlbum() {
-        return AjaxResult.success(albumRepository.findAll());
+    @GetMapping("/album/getAllAlbum/{page}/{size}")
+    public AjaxResult getAllAlbum(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return AjaxResult.success(albumRepository.findAll(PageRequest.of(page, size)));
     }
 
     @GetMapping("/album/findAlbumsByNameLike/{name}/{page}/{size}")

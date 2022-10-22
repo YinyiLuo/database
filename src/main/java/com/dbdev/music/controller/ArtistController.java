@@ -15,9 +15,9 @@ public class ArtistController {
     @Autowired
     private ArtistRepository artistRepository;
 
-    @GetMapping("/artist/getAllArtist")
-    public AjaxResult getAllArtist() {
-        return AjaxResult.success(artistRepository.findAll());
+    @GetMapping("/artist/getAllArtist/{page}/{size}")
+    public AjaxResult getAllArtist(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return AjaxResult.success(artistRepository.findAll(PageRequest.of(page, size)));
     }
 
     @GetMapping("/artist/findArtistsByNameLike/{name}/{page}/{size}")
