@@ -18,9 +18,16 @@ public class SysUserController {
     @Autowired
     private SysUserRepository sysUserRepository;
 
-    @GetMapping("/sysuser/getAllUser")
-    public AjaxResult getAllUser() {
-        return AjaxResult.success(sysUserRepository.findAll());
+    @GetMapping("/sysuser/getAllUser/{page}/{size}")
+    public AjaxResult getAllUser(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return AjaxResult.success(sysUserRepository.findAll(PageRequest.of(page, size)));
+    }
+
+    @GetMapping("sysuser/findById/{id}")
+    public AjaxResult findById(@PathVariable("id") Long id) {
+        System.out.println("findUserById");
+        var byId = sysUserRepository.findById(id);
+        return AjaxResult.success(byId);
     }
 
     @GetMapping("/sysuser/findUsersByNameLike/{name}/{page}/{size}")

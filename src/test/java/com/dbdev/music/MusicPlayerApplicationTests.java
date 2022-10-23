@@ -1,8 +1,9 @@
 package com.dbdev.music;
 
-import com.dbdev.music.domain.Album;
+import com.dbdev.music.domain.Artist;
 import com.dbdev.music.domain.SysUser;
 import com.dbdev.music.repository.AlbumRepository;
+import com.dbdev.music.repository.ArtistRepository;
 import com.dbdev.music.repository.SysUserRepository;
 import com.dbdev.music.repository.TrackRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,20 +11,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 class MusicPlayerApplicationTests {
 
 	@Autowired
 	SysUserRepository sysUserRepository;
+
+	@Autowired
+	ArtistRepository artistRepository;
 
 	@Autowired
 	AlbumRepository albumRepository;
@@ -94,7 +96,25 @@ class MusicPlayerApplicationTests {
 	}
 
 	@Test
-	void testNew() throws Exception{
+	void testNew() throws Exception {
+//		System.out.println(objectMapper.writeValueAsString(
+//				albumRepository.findWithExtraInfoByNameLike("你", PageRequest.of(0, 5))
+//		));
+//		System.out.println(objectMapper.writeValueAsString(
+//				albumRepository.findAllWithExtraInfo(PageRequest.of(0, 5))
+//		));
+//		System.out.println(objectMapper.writeValueAsString(
+//				artistRepository.findWithExtraInfoByNameLike("杰", PageRequest.of(0, 5))
+//		));
+//		System.out.println(objectMapper.writeValueAsString(
+//				artistRepository.findAllWithExtraInfo(PageRequest.of(0, 5))
+//		));
+//		System.out.println(objectMapper.writeValueAsString(
+//				trackRepository.findWithExtraInfoByNameLike("里", PageRequest.of(0, 20))
+//		));
+//		System.out.println(objectMapper.writeValueAsString(
+//				trackRepository.findAllWithExtraInfo(PageRequest.of(0, 5))
+//		));
 //		System.out.println(objectMapper.writeValueAsString(
 //				(albumRepository.findAlbumsByArtistId(1L, PageRequest.of(0, 1)))));
 //		System.out.println(objectMapper.writeValueAsString(

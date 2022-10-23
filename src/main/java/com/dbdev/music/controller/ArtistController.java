@@ -4,6 +4,7 @@ import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Artist;
 import com.dbdev.music.body.ArtistInfo;
 import com.dbdev.music.repository.ArtistRepository;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,26 @@ public class ArtistController {
     @GetMapping("/artist/getAllArtist/{page}/{size}")
     public AjaxResult getAllArtist(@PathVariable("page") int page, @PathVariable("size") int size) {
         return AjaxResult.success(artistRepository.findAll(PageRequest.of(page, size)));
+    }
+
+    @GetMapping("/artist/findById/{id}")
+    public AjaxResult findById(@PathVariable("id") Long id) {
+        System.out.println("findArtistById");
+        var byId = artistRepository.findById(id);
+        return AjaxResult.success(byId);
+    }
+
+    @GetMapping("/artist/findAllWithExtraInfo/{page}/{size}")
+    public AjaxResult findAllWithExtraInfo(@PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAllArtistsWithExtraInfo");
+        return AjaxResult.success(artistRepository.findAllWithExtraInfo(PageRequest.of(page, size)));
+    }
+
+    @GetMapping("/artist/findWithExtraInfoByNameLike/{name}/{page}/{size}")
+    public AjaxResult findWithExtraInfoByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findArtistsWithExtraInfoByNameLike");
+        var byName = artistRepository.findWithExtraInfoByNameLike(name, PageRequest.of(page, size));
+        return AjaxResult.success(byName);
     }
 
     @GetMapping("/artist/findArtistsByNameLike/{name}/{page}/{size}")

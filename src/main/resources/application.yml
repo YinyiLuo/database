@@ -25,4 +25,4 @@ server:
 token:
   secret: jiU*7?KOji9834
   header: Authorization
-  expireTime: 30
+  expireTime: 300

@@ -2,12 +2,15 @@ package com.dbdev.music.controller;
 
 import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Track;
+import com.dbdev.music.domain.TrackWithExtraInfo;
 import com.dbdev.music.body.TrackInfo;
 import com.dbdev.music.repository.TrackRepository;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.PostUpdate;
@@ -24,6 +27,26 @@ public class TrackController {
     @GetMapping("/track/getAllTrack/{page}/{size}")
     public AjaxResult getAllTrack(@PathVariable("page") int page, @PathVariable("size") int size) {
         return AjaxResult.success(trackRepository.findAll(PageRequest.of(page, size)));
+    }
+
+    @GetMapping("/track/findById/{id}")
+    public AjaxResult findById(@PathVariable("id") Long id) {
+        System.out.println("findTrackById");
+        var byId = trackRepository.findById(id);
+        return AjaxResult.success(byId);
+    }
+
+    @GetMapping("/track/findAllWithExtraInfo/{page}/{size}")
+    public AjaxResult findAllWithExtraInfo(@PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAllTracksWithExtraInfo");
+        return AjaxResult.success(trackRepository.findAllWithExtraInfo(PageRequest.of(page, size)));
+    }
+
+    @GetMapping("/track/findWithExtraInfoByNameLike/{name}/{page}/{size}")
+    public AjaxResult findWithExtraInfoByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findTracksWithExtraInfoByNameLike");
+        var byName = trackRepository.findWithExtraInfoByNameLike(name, PageRequest.of(page, size));
+        return AjaxResult.success(byName);
     }
 
     @GetMapping("/track/findTracksByNameLike/{name}/{page}/{size}")

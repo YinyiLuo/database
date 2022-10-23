@@ -21,6 +21,26 @@ public class AlbumController {
         return AjaxResult.success(albumRepository.findAll(PageRequest.of(page, size)));
     }
 
+    @GetMapping("/album/findAllWithExtraInfo/{page}/{size}")
+    public AjaxResult findAllWithExtraInfo(@PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAllAlbumsWithExtraInfo");
+        return AjaxResult.success(albumRepository.findAllWithExtraInfo(PageRequest.of(page, size)));
+    }
+
+    @GetMapping("/album/findWithExtraInfoByNameLike/{name}/{page}/{size}")
+    public AjaxResult findWithExtraInfoByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findAlbumsWithExtraInfoByNameLike");
+        var byName = albumRepository.findWithExtraInfoByNameLike(name, PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
+    @GetMapping("/album/findById/{id}")
+    public AjaxResult findById(@PathVariable("id") Long id) {
+        System.out.println("findAlbumById");
+        var byId = albumRepository.findById(id);
+        return AjaxResult.success(byId);
+    }
+
     @GetMapping("/album/findAlbumsByNameLike/{name}/{page}/{size}")
     public AjaxResult findAlbumsByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findAlbumsByNameLike");
