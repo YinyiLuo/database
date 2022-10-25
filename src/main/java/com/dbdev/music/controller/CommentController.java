@@ -4,6 +4,7 @@ import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Comment;
 import com.dbdev.music.body.CommentInfo;
 import com.dbdev.music.repository.CommentRepository;
+import com.dbdev.music.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,17 @@ public class CommentController {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private CommentService commentService;
+
+    //返回结果如何使用
+    //主要是child如何使用
+    @GetMapping("/getCommentsByAlbumId/{albumId}/{page}/{size}")
+    public AjaxResult getComments(@PathVariable("albumId") Long albumId, @PathVariable("page") int page, @PathVariable("size") int size)
+    {
+        return AjaxResult.success(commentService.getComments(albumId,PageRequest.of(page, size)));
+    }
 
     @GetMapping("/comment/getAllComment")
     public AjaxResult getAllComment() {
@@ -27,6 +39,7 @@ public class CommentController {
         return AjaxResult.success(byId);
     }
 
+    //这个接口可能被废弃
     @GetMapping("/comment/findCommentByAlbumId/{albumId}/{page}/{size}")
     public AjaxResult findCommentByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findCommentByAlbumId");
