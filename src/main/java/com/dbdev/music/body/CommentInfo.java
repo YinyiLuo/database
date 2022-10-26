@@ -12,5 +12,6 @@ public class CommentInfo {
     private Long userId;
     private Long albumId;
     private String context;
-    private String commentedTime;
+    private Long parentId;//父评论的id，
+    private Long rootParentId;//最顶级的评论的id  形成二维
 }

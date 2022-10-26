@@ -62,6 +62,13 @@ public class AlbumController {
         return AjaxResult.success(byName);
     }
 
+    @GetMapping("/album/findContainedAlbumsByArtistId/{id}/{page}/{size}")
+    public AjaxResult findContainedAlbumsByArtistId(@PathVariable("id") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findContainedAlbumsByArtistId");
+        var byName = albumRepository.findContainedAlbumsByArtistId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
     @PostMapping("/album/addAlbum")
     public AjaxResult addAlbum(@RequestBody AlbumInfo info) {
         albumRepository.save(

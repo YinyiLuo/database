@@ -27,12 +27,14 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
             "join Track tc on tc.id=bl.trackId where tc.name like %?1%")
     Page<Artist> findByTrackNameLike(String name, Pageable pageable);
 
-    @Query("select ar, count(distinct al), count(distinct tc) from Artist ar join Make mk on ar.id=mk.artistId " +
+    @Query("select new com.dbdev.music.domain.ArtistWithExtraInfo(ar, count(distinct al), count(distinct tc)) " +
+            "from Artist ar join Make mk on ar.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId group by ar, mk, bl")
     Page<List<ArtistWithExtraInfo>> findAllWithExtraInfo(PageRequest pageRequest);
 
-    @Query("select ar, count(distinct al), count(distinct tc) from Artist ar join Make mk on ar.id=mk.artistId " +
+    @Query("select new com.dbdev.music.domain.ArtistWithExtraInfo(ar, count(distinct al), count(distinct tc)) " +
+            "from Artist ar join Make mk on ar.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId where ar.name like %?1% group by ar, mk, bl")
     Page<List<ArtistWithExtraInfo>> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);

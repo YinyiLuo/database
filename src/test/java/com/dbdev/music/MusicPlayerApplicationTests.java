@@ -1,11 +1,11 @@
 package com.dbdev.music;
 
+import com.dbdev.music.controller.CommentController;
 import com.dbdev.music.domain.Artist;
+import com.dbdev.music.domain.Comment;
 import com.dbdev.music.domain.SysUser;
-import com.dbdev.music.repository.AlbumRepository;
-import com.dbdev.music.repository.ArtistRepository;
-import com.dbdev.music.repository.SysUserRepository;
-import com.dbdev.music.repository.TrackRepository;
+import com.dbdev.music.repository.*;
+import com.dbdev.music.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,12 @@ class MusicPlayerApplicationTests {
 
 	@Autowired
 	TrackRepository trackRepository;
+
+	@Autowired
+	CommentRepository commentRepository;
+
+	@Autowired
+	CommentService commentService;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -97,6 +103,9 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void testNew() throws Exception {
+//		System.out.println(objectMapper.writeValueAsString(
+//				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
+//		));
 //		System.out.println(objectMapper.writeValueAsString(
 //				albumRepository.findWithExtraInfoByNameLike("你", PageRequest.of(0, 5))
 //		));

@@ -70,6 +70,20 @@ public class TrackController {
         return AjaxResult.success(byName);
     }
 
+    @GetMapping("/track/findContainedTracksByAlbumId/{id}/{page}/{size}")
+    public AjaxResult findContainedTracksByAlbumId(@PathVariable("id") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findContainedTracksByAlbumId");
+        var byName = trackRepository.findContainedTracksByAlbumId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
+    @GetMapping("/track/findContainedTracksByArtistId/{id}/{page}/{size}")
+    public AjaxResult findContainedTracksByArtistId(@PathVariable("id") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findContainedTracksByArtistId");
+        var byName = trackRepository.findContainedTracksByArtistId(id, PageRequest.of(page, size));
+        return AjaxResult.success(byName);
+    }
+
     //管理员可以删除track
     @DeleteMapping("/track/removeTrack/{id}")
     public  AjaxResult removeTrack(@PathVariable("id") Long id)

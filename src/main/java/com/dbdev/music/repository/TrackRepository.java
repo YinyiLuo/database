@@ -24,17 +24,22 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
             "join Artist atst on atst.id=mk.artistId where atst.name like %?1%")
     Page<List<Track>> findTracksByArtistNameLike(String name, Pageable pageable);
 
-    @Query("select tc, atst.name, al.name from Track tc join BelongTo bl on tc.id=bl.trackId " +
+    @Query("select new com.dbdev.music.domain.TrackWithExtraInfo(tc, atst.name, al.name) " +
+            "from Track tc join BelongTo bl on tc.id=bl.trackId " +
             "join Album al on al.id=bl.albumId join Make mk on al.id=mk.albumId " +
             "join Artist atst on atst.id=mk.artistId")
-//    @Query("select new com.dbdev.music.domain.TrackWithExtraInfo(tc.name, tc.file, tc.checked, tc.timeLength, atst.name, al.name) " +
-//            "from Track tc join BelongTo bl on tc.id=bl.trackId " +
-//            "join Album al on al.id=bl.albumId join Make mk on al.id=mk.albumId " +
-//            "join Artist atst on atst.id=mk.artistId")
     Page<List<TrackWithExtraInfo>> findAllWithExtraInfo(PageRequest pageRequest);
 
-    @Query("select tc, atst.name, al.name from Track tc join BelongTo bl on tc.id=bl.trackId " +
+    @Query("select new com.dbdev.music.domain.TrackWithExtraInfo(tc, atst.name, al.name) " +
+            "from Track tc join BelongTo bl on tc.id=bl.trackId " +
             "join Album al on al.id=bl.albumId join Make mk on al.id=mk.albumId " +
             "join Artist atst on atst.id=mk.artistId where tc.name like %?1%")
     Page<List<TrackWithExtraInfo>> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);
+
+    @Query("select tc from Track tc join BelongTo bl on tc.id=bl.trackId where bl.albumId=?1")
+    Page<List<Track>> findContainedTracksByAlbumId(Long id, PageRequest pageRequest);
+
+    @Query("select tc from Track tc join BelongTo bl on tc.id=bl.trackId join Album al on al.id=bl.albumId " +
+            "join Make mk on al.id=mk.albumId where mk.artistId=?1")
+    Page<List<Track>> findContainedTracksByArtistId(Long id, PageRequest pageRequest);
 }

@@ -28,12 +28,7 @@ public class CommentService {
         //遍历一次，将所有comment 加入map中，方便查找
         for(Comment comment:list)
         {
-            //这个就是第一级评论
-            if(comment.getParentId()==null)
-            {
-                result.add(comment);
-            }
-            map.put(comment.getId(),comment);
+            map.put(comment.getId(), comment);
         }
 
         //再遍历一次，把子评论放在父评论中
@@ -58,11 +53,24 @@ public class CommentService {
                 Comment p = map.get(id);//上面找root，现在找到了root，把这个评论加在root下
                 if(p.getChild()==null)
                 {
-                    p.setChild((new ArrayList<>()));
+                    p.setChild(new ArrayList<>());
                 }
                 p.getChild().add(comment);
+                System.out.println(p.getChild());
+                System.out.println(map);
             }
         }
+
+        for(Comment comment:list)
+        {
+            //这个就是第一级评论
+            if(comment.getParentId()==null)
+            {
+                result.add(comment);
+            }
+//            map.put(comment.getId(),comment);
+        }
+
         return result;
     }
 

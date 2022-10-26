@@ -1,9 +1,6 @@
 package com.dbdev.music.repository;
 
-import com.dbdev.music.domain.Album;
-import com.dbdev.music.domain.AlbumWithExtraInfo;
-import com.dbdev.music.domain.ArtistWithExtraInfo;
-import com.dbdev.music.domain.TrackWithExtraInfo;
+import com.dbdev.music.domain.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +24,18 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
             "join Track tc on tc.id=bl.trackId where tc.name like %?1%")
     Page<Album> findByTrackNameLike(String name, Pageable pageable);
 
-    @Query("select al, arti.name, count(distinct tc) from Artist arti join Make mk on arti.id=mk.artistId " +
+    @Query("select new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
+            "from Artist arti join Make mk on arti.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId group by arti, mk, al, bl")
     Page<List<AlbumWithExtraInfo>> findAllWithExtraInfo(PageRequest pageRequest);
 
-    @Query("select al, arti.name, count(distinct tc) from Artist arti join Make mk on arti.id=mk.artistId " +
+    @Query("select new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
+            "from Artist arti join Make mk on arti.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId where al.name like %?1% group by arti, mk, al, bl")
     Page<List<AlbumWithExtraInfo>> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);
+
+    @Query("select al from Album al join Make mk on al.id=mk.albumId where mk.artistId=?1")
+    Page<List<Track>> findContainedAlbumsByArtistId(Long id, PageRequest pageRequest);
 }

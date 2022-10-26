@@ -1,7 +1,24 @@
 package com.dbdev.music.domain;
 
-public class ArtistWithExtraInfo extends Artist{
-    private int num_albums;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-    private int num_tracks;
+@Getter
+@Setter
+@ToString
+public class ArtistWithExtraInfo extends Artist{
+    private Long numAlbums;
+
+    private Long numTracks;
+
+    public ArtistWithExtraInfo(Artist ar, Long numAlbums, Long numTracks) {
+        super(ar.getName());
+        this.setId(ar.getId());
+        this.setCreateTime(ar.getCreateTime());
+        this.setUpdateTime(ar.getUpdateTime());
+        this.setVersion(ar.getVersion());
+        this.numAlbums = numAlbums;
+        this.numTracks = numTracks;
+    }
 }

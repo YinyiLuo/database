@@ -61,7 +61,8 @@ public class CommentController {
                         .userId(info.getUserId())
                         .albumId(info.getAlbumId())
                         .context(info.getContext())
-                        .commentedTime(info.getCommentedTime())
+                        .parentId(info.getParentId())
+                        .rootParentId(info.getRootParentId())
                         .build()
         );
         return AjaxResult.success();
