@@ -45,6 +45,7 @@ class MusicPlayerApplicationTests {
 	@Autowired
 	ObjectMapper objectMapper;
 
+
 	@SuppressWarnings("all")
 	@Autowired
 	private JavaMailSender mailSender;
@@ -78,6 +79,11 @@ class MusicPlayerApplicationTests {
 		//System.out.println("yiranfantexi");
 	}*/
 
+	@Test
+	void testCS()
+	{
+		System.out.println(commentService.getComments(2L, PageRequest.of(0, 5)));
+	}
 	@Test
 	void contextLoads() {
 		String password = passwordEncoder.encode("password1");
