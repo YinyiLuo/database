@@ -24,13 +24,13 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
             "join Track tc on tc.id=bl.trackId where tc.name like %?1%")
     Page<Album> findByTrackNameLike(String name, Pageable pageable);
 
-    @Query("select new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
+    @Query("select distinct new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
             "from Artist arti join Make mk on arti.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId group by arti, mk, al, bl")
     Page<List<AlbumWithExtraInfo>> findAllWithExtraInfo(PageRequest pageRequest);
 
-    @Query("select new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
+    @Query("select distinct new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
             "from Artist arti join Make mk on arti.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId where al.name like %?1% group by arti, mk, al, bl")

@@ -12,13 +12,13 @@ public class TrackWithExtraInfo extends Track{
 
     private String albumName;
 
-    public TrackWithExtraInfo(Track tc, String artist_name, String album_name) {
+    public TrackWithExtraInfo(Track tc, String artistName, String albumName) {
         super(tc.getName(), tc.getFile(), tc.isChecked(), tc.getTimeLength());
         this.setId(tc.getId());
         this.setCreateTime(tc.getCreateTime());
         this.setUpdateTime(tc.getUpdateTime());
         this.setVersion(tc.getVersion());
-        this.artistName = artist_name;
-        this.albumName = album_name;
+        this.artistName = artistName;
+        this.albumName = albumName;
     }
 }
