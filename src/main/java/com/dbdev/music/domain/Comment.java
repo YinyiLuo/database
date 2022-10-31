@@ -1,5 +1,6 @@
 package com.dbdev.music.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Transient;
@@ -23,10 +24,12 @@ public class Comment extends BaseEntity {
 
     private Long parentId;//父评论的id，
 
+
     private Long rootParentId;//最顶级的评论的id  形成二维
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "rootParentId", insertable=false, updatable=false)
+    @JsonIgnore
     private Comment parent;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "parent")
@@ -46,6 +49,7 @@ public class Comment extends BaseEntity {
         return Objects.hash(super.hashCode(), userId, albumId, context, parentId, rootParentId);
     }
 
+    /*
     @Override
     public String toString() {
         return "Comment{" +
@@ -56,5 +60,5 @@ public class Comment extends BaseEntity {
                 ", rootParentId=" + rootParentId +
                 ", child=" + child +
                 '}';
-    }
+    }*/
 }

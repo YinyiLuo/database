@@ -109,9 +109,9 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void testNew() throws Exception {
-//		System.out.println(objectMapper.writeValueAsString(
-//				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
-//		));
+		System.out.println(objectMapper.writeValueAsString(
+				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
+		));
 //		System.out.println(objectMapper.writeValueAsString(
 //				albumRepository.findWithExtraInfoByNameLike("你", PageRequest.of(0, 5))
 //		));
