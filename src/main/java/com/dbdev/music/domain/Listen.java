@@ -1,5 +1,6 @@
 package com.dbdev.music.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import javax.persistence.Entity;
@@ -14,8 +15,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Listen extends BaseEntity {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long trackId;
 
     private String latestDateTimePlaybackBegan;

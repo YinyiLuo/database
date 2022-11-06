@@ -5,10 +5,13 @@ import com.dbdev.music.domain.Comment;
 import com.dbdev.music.body.CommentInfo;
 import com.dbdev.music.repository.CommentRepository;
 import com.dbdev.music.service.CommentService;
+import com.dbdev.music.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class CommentController {
@@ -18,6 +21,9 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private TokenService tokenService;
 
     //返回结果如何使用
     //主要是child如何使用
@@ -40,12 +46,12 @@ public class CommentController {
     }
 
     //这个接口可能被废弃
-    @GetMapping("/comment/findCommentByAlbumId/{albumId}/{page}/{size}")
-    public AjaxResult findCommentByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCommentByAlbumId");
-        var byId = commentRepository.findByAlbumId(id, PageRequest.of(page, size));
-        return AjaxResult.success(byId);
-    }
+//    @GetMapping("/comment/findCommentByAlbumId/{albumId}/{page}/{size}")
+//    public AjaxResult findCommentByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
+//        System.out.println("findCommentByAlbumId");
+//        var byId = commentRepository.findByAlbumId(id, PageRequest.of(page, size));
+//        return AjaxResult.success(byId);
+//    }
 
     @GetMapping("/comment/findCommentByUserIdAndAlbumId/{userId}/{albumId}/{page}/{size}")
     public AjaxResult findCommentByUserIdAndAlbumId(@PathVariable("userId") Long u_id, @PathVariable("albumId") Long a_id, @PathVariable("page") int page, @PathVariable("size") int size) {
@@ -55,24 +61,38 @@ public class CommentController {
     }
 
     @PostMapping("/comment/addComment")
-    public AjaxResult addComment(@RequestBody CommentInfo info) {
+    public AjaxResult addComment(@RequestBody CommentInfo info, HttpServletRequest request) {
         commentRepository.save(
                 Comment.builder()
-                        .userId(info.getUserId())
+                        .userId(tokenService.getLoginUser(request).getSysUser().getId())
                         .albumId(info.getAlbumId())
                         .context(info.getContext())
                         .parentId(info.getParentId())
-                        .rootParentId(info.getRootParentId())
                         .build()
         );
         return AjaxResult.success();
     }
 
     //用户可以删除自己的comment
-    @DeleteMapping("/comment/removeComment/{id}")
+    @DeleteMapping("/comment/operateLike/{id}")
     public AjaxResult removeComment(@PathVariable("id") Long id)
     {
         commentRepository.deleteById(id);
         return AjaxResult.success();
+    }
+
+    @PutMapping("/comment/operateLike/{commentId}")
+    public AjaxResult operateLike(@PathVariable("commentId") Long commentId, HttpServletRequest request)    // 点赞
+    {
+        Long userId = tokenService.getLoginUser(request).getSysUser().getId();
+        commentService.operateLike(commentId, userId);
+        return AjaxResult.success();
+    }
+
+    @GetMapping("/comment/checkLikeFlag/{commentId}")
+    public AjaxResult checkLikeFlag(@PathVariable("commentId") Long commentId, HttpServletRequest request)
+    {
+        Long userId = tokenService.getLoginUser(request).getSysUser().getId();
+        return AjaxResult.success(commentService.checkLikeFlag(commentId, userId));
     }
 }

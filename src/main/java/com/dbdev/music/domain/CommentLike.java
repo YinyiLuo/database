@@ -3,37 +3,36 @@ package com.dbdev.music.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import javax.persistence.Entity;
-import java.util.Objects;
+
+import javax.persistence.*;
+import java.util.*;
 
 
 @Entity
 @ToString
-@Getter
-@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Make extends BaseEntity {
+@Setter
+@Getter
+public class CommentLike extends BaseEntity{
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long albumId;
+    private Long userId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long artistId;
-
-    private String year;
+    private Long commentId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Make make = (Make) o;
-        return albumId.equals(make.albumId) && artistId.equals(make.artistId) && year.equals(make.year);
+        CommentLike like = (CommentLike) o;
+        return Objects.equals(userId, like.userId) && Objects.equals(commentId, like.commentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), albumId, artistId, year);
+        return Objects.hash(super.hashCode(), userId, commentId);
     }
 }

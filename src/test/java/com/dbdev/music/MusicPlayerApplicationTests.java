@@ -1,7 +1,6 @@
 package com.dbdev.music;
 
 import com.dbdev.music.controller.CommentController;
-import com.dbdev.music.domain.Artist;
 import com.dbdev.music.domain.Comment;
 import com.dbdev.music.domain.SysUser;
 import com.dbdev.music.repository.*;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -37,6 +37,9 @@ class MusicPlayerApplicationTests {
 	CommentRepository commentRepository;
 
 	@Autowired
+	CommentController commentController;
+
+	@Autowired
 	CommentService commentService;
 
 	@Autowired
@@ -55,6 +58,13 @@ class MusicPlayerApplicationTests {
 
 	@Value("2135246743@qq.com")
 	String to;
+
+	@Test
+	void testComment() throws Exception {
+//		System.out.println(objectMapper.writeValueAsString(commentController.operateLike(1571829035812655104, )));
+//		Page<Comment> comments = commentRepository.findByAlbumIdAndParentIdIsNull(2L, PageRequest.of(0, 20));
+//		System.out.println(objectMapper.writeValueAsString(comments));
+	}
 
 	@Test
 	void TestEx()
