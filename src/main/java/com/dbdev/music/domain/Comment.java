@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Sort;
 
 import javax.persistence.*;
 import java.util.*;
@@ -33,6 +34,8 @@ public class Comment extends BaseEntity {
     private Long rootParentId;//最顶级的评论的id  形成二维
 
     private int likeCnt;    // 点赞数目
+
+    static public Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "parentId", insertable = false, updatable = false)

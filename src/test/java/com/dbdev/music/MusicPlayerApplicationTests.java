@@ -61,9 +61,7 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void testComment() throws Exception {
-//		System.out.println(objectMapper.writeValueAsString(commentController.operateLike(1571829035812655104, )));
-//		Page<Comment> comments = commentRepository.findByAlbumIdAndParentIdIsNull(2L, PageRequest.of(0, 20));
-//		System.out.println(objectMapper.writeValueAsString(comments));
+		System.out.println(objectMapper.writeValueAsString(commentController.getComments(2L, 0, 8)));
 	}
 
 	@Test

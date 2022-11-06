@@ -1,6 +1,7 @@
 package com.dbdev.music.controller;
 
 import com.dbdev.music.core.AjaxResult;
+import com.dbdev.music.domain.BaseEntity;
 import com.dbdev.music.domain.Comment;
 import com.dbdev.music.body.CommentInfo;
 import com.dbdev.music.repository.CommentRepository;
@@ -9,13 +10,13 @@ import com.dbdev.music.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class CommentController {
-
     @Autowired
     private CommentRepository commentRepository;
 
@@ -30,7 +31,7 @@ public class CommentController {
     @GetMapping("/getCommentsByAlbumId/{albumId}/{page}/{size}")
     public AjaxResult getComments(@PathVariable("albumId") Long albumId, @PathVariable("page") int page, @PathVariable("size") int size)
     {
-        return AjaxResult.success(commentService.getComments(albumId,PageRequest.of(page, size)));
+        return AjaxResult.success(commentService.getComments(albumId,PageRequest.of(page, size, Comment.sort)));
     }
 
     @GetMapping("/comment/getAllComment")
