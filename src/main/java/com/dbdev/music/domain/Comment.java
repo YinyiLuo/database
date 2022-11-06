@@ -43,6 +43,7 @@ public class Comment extends BaseEntity {
     private Comment parent;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
+    @OrderBy("createTime asc")
     private List<Comment> child; //本评论下的子评论
 
     @Override
