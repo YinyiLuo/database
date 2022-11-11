@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @RestController
@@ -39,7 +36,7 @@ public class UploadController {
     @Autowired
     private MakeRepository makeRepository;
     @PostMapping("/uploadFile")
-    public AjaxResult uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile[] files,@RequestParam("trackName") String trackName,@RequestParam("albumName") String albumName) throws IOException
+    public AjaxResult uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile[] files, @RequestParam("trackName") String trackName, @RequestParam("albumName") String albumName) throws IOException
     {
 
         boolean checked;

@@ -3,18 +3,36 @@ package com.dbdev.music.controller;
 import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Album;
 import com.dbdev.music.body.AlbumInfo;
+import com.dbdev.music.domain.Artist;
+import com.dbdev.music.domain.Make;
 import com.dbdev.music.repository.AlbumRepository;
+import com.dbdev.music.repository.ArtistRepository;
+import com.dbdev.music.repository.MakeRepository;
+import com.dbdev.music.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class AlbumController {
 
     @Autowired
     private AlbumRepository albumRepository;
+
+    @Autowired
+    private MakeRepository makeRepository;
+
+    @Autowired
+    private ArtistRepository artistRepository;
+
+    @Autowired
+    private TokenService tokenService;
 
     @GetMapping("/album/getAllAlbum/{page}/{size}")
     public AjaxResult getAllAlbum(@PathVariable("page") int page, @PathVariable("size") int size) {
@@ -70,10 +88,25 @@ public class AlbumController {
     }
 
     @PostMapping("/album/addAlbum")
-    public AjaxResult addAlbum(@RequestBody AlbumInfo info) {
+    public AjaxResult addAlbum(@RequestBody AlbumInfo info, HttpServletRequest request) {
         albumRepository.save(
                 Album.builder()
                         .name(info.getName())
+                        .build()
+        );
+        Long aId = albumRepository.findByName(info.getName()).getId();
+        Long uId = tokenService.getLoginUser(request).getSysUser().getId();
+        artistRepository.save(
+                Artist.builder()
+                        .name(tokenService.getLoginUser(request).getSysUser().getName())
+                        .build()
+        );
+        uId = artistRepository.findByName(tokenService.getLoginUser(request).getSysUser().getName()).getId();
+        makeRepository.save(
+                Make.builder()
+                        .albumId(aId)
+                        .artistId(uId)
+                        .year("2022")
                         .build()
         );
         return AjaxResult.success();

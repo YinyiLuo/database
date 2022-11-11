@@ -35,19 +35,20 @@ public class UploadService {
         }
 
         //创建目录
-        String uploadPath = "src/main/resources/static/music";
-        File uploadDir = new File(uploadPath);
-        if(!uploadDir.exists())
-        {
-            uploadDir.mkdir();
-        }
+//        String uploadPath = "src/main/resources/music";
+        String uploadPath = "D:/";
+//        File uploadDir = new File(uploadPath);
+//        if(!uploadDir.exists())
+//        {
+//            uploadDir.mkdir();
+//        }
 
         //创建唯一的文件名
         UUID uuid = UUID.randomUUID();
         String filename= uuid.toString();
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 
-        File f = new File(uploadPath+"\\"+filename+suffix);
+        File f = new File(uploadPath+"/"+filename+suffix);
         //保存文件
         try {
             file.transferTo(f);

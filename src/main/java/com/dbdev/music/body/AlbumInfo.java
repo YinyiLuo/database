@@ -4,9 +4,11 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter

@@ -3,6 +3,7 @@ package com.dbdev.music.body;
 import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Setter
 @Getter
