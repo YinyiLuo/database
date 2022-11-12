@@ -35,8 +35,12 @@ public class UploadController {
 
     @Autowired
     private MakeRepository makeRepository;
-    @PostMapping("/uploadFile")
-    public AjaxResult uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile[] files, @RequestParam("trackNames") String[] trackNames, @RequestParam("albumName") String albumName,@RequestParam("description") String description) throws IOException
+    @PostMapping("/uploadTrack")
+    public AjaxResult uploadFile(HttpServletRequest request,
+                                 @RequestParam("file") MultipartFile[] files,
+                                 @RequestParam("trackNames") String[] trackNames,
+                                 @RequestParam("albumName") String albumName,
+                                 @RequestParam("description") String description) throws IOException
     {
 
         boolean checked;
