@@ -26,17 +26,18 @@ public class UploadService {
             return info;
         }
 
-        if(!file.getContentType().equals("audio/mpeg"))
+        if(!file.getContentType().startsWith("audio/"))
         {
-            System.out.println("文件类型不为audio/mpeg");
+            System.out.println("文件类型不符");
+            System.out.println(file.getContentType());
             info.put("status",Constants.FILE_ERROR);
-            info.put("error","文件类型不为audio/mpeg");
+            info.put("error","文件类型不符");
             return info;
         }
 
         //创建目录
 //        String uploadPath = "src/main/resources/music";
-        String uploadPath = "static/music";
+        String uploadPath = "music";
 //        File uploadDir = new File(uploadPath);
 //        if(!uploadDir.exists())
 //        {
@@ -98,7 +99,7 @@ public class UploadService {
             return info;
         }
         //创建目录
-        String uploadPath = "src/main/resources/static/img";
+        String uploadPath = "src/main/resources/img";
         File uploadDir = new File(uploadPath);
         if(!uploadDir.exists())
         {

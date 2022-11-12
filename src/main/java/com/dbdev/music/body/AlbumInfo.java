@@ -15,4 +15,5 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class AlbumInfo {
     private String name;
+    private String description;
 }

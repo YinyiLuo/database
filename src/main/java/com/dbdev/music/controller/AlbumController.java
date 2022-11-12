@@ -92,6 +92,7 @@ public class AlbumController {
         albumRepository.save(
                 Album.builder()
                         .name(info.getName())
+                        .description(info.getDescription())
                         .build()
         );
         Long aId = albumRepository.findByName(info.getName()).getId();
@@ -109,7 +110,7 @@ public class AlbumController {
                         .year("2022")
                         .build()
         );
-        return AjaxResult.success();
+        return AjaxResult.success(aId);
     }
 
 

@@ -13,7 +13,7 @@ public class AlbumWithExtraInfo extends Album{
     private Long numTracks;
 
     public AlbumWithExtraInfo(Album al, String artistName, Long numTracks) {
-        super(al.getName());
+        super(al.getName(), al.getDescription());
         this.setId(al.getId());
         this.setCreateTime(al.getCreateTime());
         this.setUpdateTime(al.getUpdateTime());
