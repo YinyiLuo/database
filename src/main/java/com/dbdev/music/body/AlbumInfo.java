@@ -16,4 +16,5 @@ import java.util.UUID;
 public class AlbumInfo {
     private String name;
     private String description;
+    private Boolean checked;
 }

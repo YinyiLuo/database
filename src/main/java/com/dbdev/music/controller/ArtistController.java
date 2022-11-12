@@ -67,6 +67,7 @@ public class ArtistController {
         artistRepository.save(
                 Artist.builder()
                         .name(info.getName())
+                        .userId(info.getUserId())
                         .build()
         );
         return AjaxResult.success();

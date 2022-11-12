@@ -18,7 +18,7 @@ public class SysRegisterService {
     public String getCode(String email, String mark) {
         Random random = new Random();
         String code = String.valueOf(random.nextInt(1, 10) * 100000 + random.nextInt(100000));
-        mailSenderHelper.send(email, code);
+        mailSenderHelper.sendCode(email, code);
         redisCache.setCacheObject(email + ":" + mark, code);
         return code;
     }

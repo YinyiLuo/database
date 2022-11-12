@@ -11,4 +11,5 @@ import lombok.*;
 @EqualsAndHashCode
 public class ArtistInfo {
     private String name;
+    private Long userId;
 }

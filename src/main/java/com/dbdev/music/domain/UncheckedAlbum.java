@@ -3,22 +3,23 @@ package com.dbdev.music.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
-public class AlbumWithExtraInfo extends Album{
-    private String artistName;
 
-    private Long numTracks;
+public class UncheckedAlbum extends Album{
+    private List<Track> containedTracks;
 
-    public AlbumWithExtraInfo(Album al, String artistName, Long numTracks) {
+    public UncheckedAlbum(Album al, List<Track> containedTracks) {
         super(al.getName(), al.getDescription(), al.getChecked());
         this.setId(al.getId());
+        this.setVersion(al.getVersion());
         this.setCreateTime(al.getCreateTime());
         this.setUpdateTime(al.getUpdateTime());
-        this.setVersion(al.getVersion());
-        this.artistName = artistName;
-        this.numTracks = numTracks;
+        this.containedTracks = containedTracks;
     }
 }

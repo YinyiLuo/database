@@ -22,17 +22,19 @@ public class Album extends BaseEntity {
 
     private String description;
 
+    private Boolean checked;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Album album = (Album) o;
-        return Objects.equals(name, album.name) && Objects.equals(description, album.description);
+        return Objects.equals(name, album.name) && Objects.equals(description, album.description) && Objects.equals(checked, album.checked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, description);
+        return Objects.hash(super.hashCode(), name, description, checked);
     }
 }

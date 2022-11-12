@@ -25,6 +25,11 @@ spring:
         smtp:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+#  web:
+#    resources:
+#      add-mappings: false
 server:
   port: 8089
 token:

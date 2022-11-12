@@ -13,7 +13,7 @@ public class ArtistWithExtraInfo extends Artist{
     private Long numTracks;
 
     public ArtistWithExtraInfo(Artist ar, Long numAlbums, Long numTracks) {
-        super(ar.getName());
+        super(ar.getName(), ar.getUserId());
         this.setId(ar.getId());
         this.setCreateTime(ar.getCreateTime());
         this.setUpdateTime(ar.getUpdateTime());

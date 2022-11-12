@@ -1,5 +1,6 @@
 package com.dbdev.music;
 
+import com.dbdev.music.controller.CheckController;
 import com.dbdev.music.controller.CommentController;
 import com.dbdev.music.domain.Comment;
 import com.dbdev.music.domain.SysUser;
@@ -47,6 +48,9 @@ class MusicPlayerApplicationTests {
 
 	@Autowired
 	ObjectMapper objectMapper;
+
+	@Autowired
+	CheckController checkController;
 
 
 	@SuppressWarnings("all")
@@ -117,9 +121,10 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void testNew() throws Exception {
-		System.out.println(objectMapper.writeValueAsString(
-				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
-		));
+		System.out.println(objectMapper.writeValueAsString(checkController.getAllUnchecked()));
+//		System.out.println(objectMapper.writeValueAsString(
+//				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
+//		));
 //		System.out.println(objectMapper.writeValueAsString(
 //				albumRepository.findWithExtraInfoByNameLike("你", PageRequest.of(0, 5))
 //		));

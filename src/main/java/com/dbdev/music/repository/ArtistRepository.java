@@ -1,9 +1,6 @@
 package com.dbdev.music.repository;
 
-import com.dbdev.music.domain.Album;
-import com.dbdev.music.domain.Artist;
-import com.dbdev.music.domain.ArtistWithExtraInfo;
-import com.dbdev.music.domain.TrackWithExtraInfo;
+import com.dbdev.music.domain.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,4 +35,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
             "join Track tc on tc.id=bl.trackId where ar.name like %?1% group by ar, mk, bl")
     Page<List<ArtistWithExtraInfo>> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);
+
+    @Query("select arti from Artist arti join Make mk on arti.id=mk.artistId where mk.albumId=?1")
+    Artist findByAlbumId(Long albumId);
 }

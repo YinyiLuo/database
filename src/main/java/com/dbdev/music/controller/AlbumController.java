@@ -93,6 +93,7 @@ public class AlbumController {
                 Album.builder()
                         .name(info.getName())
                         .description(info.getDescription())
+                        .checked(info.getChecked())
                         .build()
         );
         Long aId = albumRepository.findByName(info.getName()).getId();

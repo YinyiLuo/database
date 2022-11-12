@@ -38,4 +38,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Query("select al from Album al join Make mk on al.id=mk.albumId where mk.artistId=?1")
     Page<List<Track>> findContainedAlbumsByArtistId(Long id, PageRequest pageRequest);
+
+    List<Album> findByCheckedIsFalse();
 }
