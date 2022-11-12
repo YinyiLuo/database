@@ -36,7 +36,7 @@ public class UploadService {
 
         //创建目录
 //        String uploadPath = "src/main/resources/music";
-        String uploadPath = "D:/";
+        String uploadPath = "static/music";
 //        File uploadDir = new File(uploadPath);
 //        if(!uploadDir.exists())
 //        {
@@ -48,7 +48,11 @@ public class UploadService {
         String filename= uuid.toString();
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 
-        File f = new File(uploadPath+"/"+filename+suffix);
+        File f = new File(new File(uploadPath).getAbsolutePath()+"/"+filename+suffix);
+        if(!f.getParentFile().exists())
+        {
+            f.getParentFile().mkdir();
+        }
         //保存文件
         try {
             file.transferTo(f);
@@ -83,7 +87,6 @@ public class UploadService {
     }
 
 
-    //这个要创建对应数据库，需要讨论一下
     public HashMap<String,Object> uploadImg(MultipartFile file) throws IOException
     {
         HashMap<String,Object> info = new HashMap<String,Object>();

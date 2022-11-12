@@ -20,6 +20,7 @@ import java.util.Objects;
 public class Album extends BaseEntity {
     private String name;
 
+    private String description;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

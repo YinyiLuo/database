@@ -36,7 +36,7 @@ public class UploadController {
     @Autowired
     private MakeRepository makeRepository;
     @PostMapping("/uploadFile")
-    public AjaxResult uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile[] files, @RequestParam("trackName") String trackName, @RequestParam("albumName") String albumName) throws IOException
+    public AjaxResult uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile[] files, @RequestParam("trackNames") String[] trackNames, @RequestParam("albumName") String albumName,@RequestParam("description") String description) throws IOException
     {
 
         boolean checked;
@@ -49,7 +49,7 @@ public class UploadController {
 
         Long userId = tokenService.getLoginUser(request).getSysUser().getId();
         String username = tokenService.getLoginUser(request).getSysUser().getName();
-
+        int i=0;
         for (MultipartFile file: files)
         {
             HashMap<String,Object> info = uploadService.uploadFile(file);
@@ -66,7 +66,10 @@ public class UploadController {
                 if(album==null)
                 {
                     aId=albumRepository.save(
-                            Album.builder().name(albumName).build()
+                            Album.builder()
+                                    .name(albumName)
+                                    .description(description)
+                                    .build()
                     ).getId();
                 }
                 else
@@ -77,7 +80,7 @@ public class UploadController {
                 //保存track信息到数据库
                 Long tId = trackRepository.save(
                         Track.builder()
-                                .name(trackName)
+                                .name(trackNames[i++])
                                 .checked(checked)
                                 .timeLength((String) info.get("timeLength"))
                                 .file((UUID) info.get("file"))
@@ -117,7 +120,6 @@ public class UploadController {
 
             }
         }
-
         return AjaxResult.success("文件上传成功");
     }
 
