@@ -54,8 +54,8 @@ public class CheckController {
             album=byId.get();
         }
 
-        StringBuilder msg = new StringBuilder("亲爱的用户：\n  您上传的专辑" +
-                albumRepository.findById(id).get().getName() + "已由管理员审核。\n  审核结果为：");
+        StringBuilder msg = new StringBuilder("亲爱的用户：\n  您上传的专辑《" +
+                albumRepository.findById(id).get().getName() + "》已由管理员审核。\n  审核结果为：");
 
         if(valid == 1)
         {
