@@ -85,7 +85,6 @@ public class UploadController {
                 Long tId = trackRepository.save(
                         Track.builder()
                                 .name(trackNames[i++])
-                                .checked(checked)
                                 .timeLength((String) info.get("timeLength"))
                                 .file((UUID) info.get("file"))
                                 .build()
@@ -111,8 +110,10 @@ public class UploadController {
                     artist=artistRepository.save(
                             Artist.builder()
                                     .name(username)
+                                    .userId(tokenService.getLoginUser(request).getSysUser().getId())
                                     .build()
                     );
+
                 }
                 makeRepository.save(
                         Make.builder()

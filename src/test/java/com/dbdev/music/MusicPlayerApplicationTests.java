@@ -2,6 +2,7 @@ package com.dbdev.music;
 
 import com.dbdev.music.controller.CheckController;
 import com.dbdev.music.controller.CommentController;
+import com.dbdev.music.controller.TrackController;
 import com.dbdev.music.domain.Comment;
 import com.dbdev.music.domain.SysUser;
 import com.dbdev.music.repository.*;
@@ -24,6 +25,9 @@ class MusicPlayerApplicationTests {
 
 	@Autowired
 	SysUserRepository sysUserRepository;
+
+	@Autowired
+	TrackController trackController;
 
 	@Autowired
 	ArtistRepository artistRepository;
@@ -121,12 +125,10 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void testNew() throws Exception {
-		System.out.println(objectMapper.writeValueAsString(checkController.getAllUnchecked()));
+		System.out.println(trackController.getSongFile("爸爸去哪儿"));
+//		System.out.println(objectMapper.writeValueAsString(checkController.getAllUnchecked()));
 //		System.out.println(objectMapper.writeValueAsString(
 //				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
-//		));
-//		System.out.println(objectMapper.writeValueAsString(
-//				albumRepository.findWithExtraInfoByNameLike("你", PageRequest.of(0, 5))
 //		));
 //		System.out.println(objectMapper.writeValueAsString(
 //				albumRepository.findAllWithExtraInfo(PageRequest.of(0, 5))

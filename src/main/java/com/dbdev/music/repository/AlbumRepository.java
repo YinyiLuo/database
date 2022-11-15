@@ -13,30 +13,30 @@ import java.util.Optional;
 public interface AlbumRepository extends JpaRepository<Album, Long> {
     // Page<Album> findByName(String name, Pageable pageable);
 
-    Page<List<Album>> findByNameLike(String name, Pageable pageable);
+    Page<List<Album>> findByNameLikeAndCheckedIsTrue(String name, Pageable pageable);
     Album findByName(String name);
 
     @Query("select al from Album al join Make mk on al.id=mk.albumId " +
-            "join Artist arti on arti.id=mk.artistId where arti.name like %?1%")
-    Page<List<Album>> findAlbumsByArtistNameLike(String name, Pageable pageable);
+            "join Artist arti on arti.id=mk.artistId where arti.name like %?1% and al.checked=true")
+    Page<List<Album>> findAlbumsByArtistNameLikeAndCheckedIsTrue(String name, Pageable pageable);
 
     @Query("select al from Album al join BelongTo bl on al.id=bl.albumId " +
-            "join Track tc on tc.id=bl.trackId where tc.name like %?1%")
+            "join Track tc on tc.id=bl.trackId where tc.name like %?1% and al.checked=true")
     Page<Album> findByTrackNameLike(String name, Pageable pageable);
 
     @Query("select distinct new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
             "from Artist arti join Make mk on arti.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
-            "join Track tc on tc.id=bl.trackId group by arti, mk, al, bl")
-    Page<List<AlbumWithExtraInfo>> findAllWithExtraInfo(PageRequest pageRequest);
+            "join Track tc on tc.id=bl.trackId where al.checked=true group by arti, mk, al, bl")
+    Page<List<AlbumWithExtraInfo>> findAllWithExtraInfoAndCheckedIsTrue(PageRequest pageRequest);
 
     @Query("select distinct new com.dbdev.music.domain.AlbumWithExtraInfo(al, arti.name, count(distinct tc)) " +
             "from Artist arti join Make mk on arti.id=mk.artistId " +
             "join Album al on al.id=mk.albumId join BelongTo bl on al.id=bl.albumId " +
-            "join Track tc on tc.id=bl.trackId where al.name like %?1% group by arti, mk, al, bl")
-    Page<List<AlbumWithExtraInfo>> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);
+            "join Track tc on tc.id=bl.trackId where al.name like %?1% and al.checked=true group by arti, mk, al, bl")
+    Page<List<AlbumWithExtraInfo>> findWithExtraInfoByNameLikeAndCheckedIsTrue(String name, PageRequest pageRequest);
 
-    @Query("select al from Album al join Make mk on al.id=mk.albumId where mk.artistId=?1")
+    @Query("select al from Album al join Make mk on al.id=mk.albumId where mk.artistId=?1 and al.checked=true")
     Page<List<Track>> findContainedAlbumsByArtistId(Long id, PageRequest pageRequest);
 
     List<Album> findByCheckedIsFalse();

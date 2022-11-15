@@ -23,8 +23,6 @@ public class Track extends BaseEntity {
 
     private UUID file;
 
-    private boolean checked;
-
     private String timeLength;
 
     @Override
@@ -33,11 +31,11 @@ public class Track extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Track track = (Track) o;
-        return checked == track.checked && Objects.equals(name, track.name) && Objects.equals(file, track.file) && Objects.equals(timeLength, track.timeLength);
+        return Objects.equals(name, track.name) && Objects.equals(file, track.file) && Objects.equals(timeLength, track.timeLength);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, file, checked, timeLength);
+        return Objects.hash(super.hashCode(), name, file, timeLength);
     }
 }

@@ -1,5 +1,6 @@
 package com.dbdev.music.controller;
 
+import com.dbdev.music.body.Reason;
 import com.dbdev.music.config.MailSenderHelper;
 import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Album;
@@ -9,6 +10,7 @@ import com.dbdev.music.repository.ArtistRepository;
 import com.dbdev.music.repository.SysUserRepository;
 import com.dbdev.music.repository.TrackRepository;
 import com.dbdev.music.service.TokenService;
+import org.hibernate.dialect.FrontBaseDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -45,7 +47,7 @@ public class CheckController {
 
     @PostMapping("/check/{id}/{valid}")
     @Transactional
-    public AjaxResult Check(@PathVariable("id") Long id, @PathVariable("valid") int valid)
+    public AjaxResult Check(@PathVariable("id") Long id, @PathVariable("valid") int valid, @RequestBody Reason reas)
     {
         Optional<Album> byId = albumRepository.findById(id);
         Album album = null;
@@ -76,11 +78,13 @@ public class CheckController {
 
         msg.append("通过！\n  ");
         if (valid == 1) {
-            msg.append("谢谢您的支持！");
+            msg.append("审核通过的原因为：");
         }
         else {
             msg.append("审核不通过的原因为：");
         }
+
+        msg.append(reas.getReason()).append("\n谢谢您对我们的信任与支持！");
 
         mailSenderHelper.sendMessage(sysUserRepository.findById(artistRepository.findByAlbumId(id).getUserId()).get().getEmail(),
                 msg.toString(), "审核结果回执信");

@@ -14,8 +14,10 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.PostUpdate;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @RestController
@@ -92,13 +94,18 @@ public class TrackController {
         return AjaxResult.success();
     }
 
-    //获取歌曲的url
-    @GetMapping("/track/getUrl/{id}")
-    public String getUrl(@PathVariable("id") Long id)
+    //获取歌曲文件
+    @GetMapping("/track/getSongFile/{name}")
+    public File getSongFile(@PathVariable("name") String name)
     {
-        Optional<Track> byId = trackRepository.findById(id);
-        Track track = byId.get();
-        //路径可能会有问题
-        return "/resource/music/"+track.getFile()+".mp3";
+        Track track = trackRepository.findByName(name);
+        File fileDir = new File("music");
+        File[] files = fileDir.listFiles();
+        assert files != null;
+        for (File f : files) {
+            if (f.getName().substring(0, f.getName().lastIndexOf(".")).equals(track.getFile().toString()))
+                return f;
+        }
+        return null;
     }
 }

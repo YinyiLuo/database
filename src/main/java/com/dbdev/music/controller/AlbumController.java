@@ -42,13 +42,13 @@ public class AlbumController {
     @GetMapping("/album/findAllWithExtraInfo/{page}/{size}")
     public AjaxResult findAllWithExtraInfo(@PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findAllAlbumsWithExtraInfo");
-        return AjaxResult.success(albumRepository.findAllWithExtraInfo(PageRequest.of(page, size)));
+        return AjaxResult.success(albumRepository.findAllWithExtraInfoAndCheckedIsTrue(PageRequest.of(page, size)));
     }
 
     @GetMapping("/album/findWithExtraInfoByNameLike/{name}/{page}/{size}")
     public AjaxResult findWithExtraInfoByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findAlbumsWithExtraInfoByNameLike");
-        var byName = albumRepository.findWithExtraInfoByNameLike(name, PageRequest.of(page, size));
+        var byName = albumRepository.findWithExtraInfoByNameLikeAndCheckedIsTrue(name, PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
@@ -62,14 +62,14 @@ public class AlbumController {
     @GetMapping("/album/findAlbumsByNameLike/{name}/{page}/{size}")
     public AjaxResult findAlbumsByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findAlbumsByNameLike");
-        var byName = albumRepository.findByNameLike("%" + name + "%", PageRequest.of(page, size));
+        var byName = albumRepository.findByNameLikeAndCheckedIsTrue("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
     @GetMapping("/album/findAlbumsByArtistNameLike/{name}/{page}/{size}")
     public AjaxResult findAlbumsByArtistNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findAlbumsByArtistNameLike");
-        var byName = albumRepository.findAlbumsByArtistNameLike("%" + name + "%", PageRequest.of(page, size));
+        var byName = albumRepository.findAlbumsByArtistNameLikeAndCheckedIsTrue("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
