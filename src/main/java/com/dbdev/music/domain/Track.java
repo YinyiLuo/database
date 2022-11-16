@@ -25,17 +25,19 @@ public class Track extends BaseEntity {
 
     private String timeLength;
 
+    private String suffix;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Track track = (Track) o;
-        return Objects.equals(name, track.name) && Objects.equals(file, track.file) && Objects.equals(timeLength, track.timeLength);
+        return Objects.equals(name, track.name) && Objects.equals(file, track.file) && Objects.equals(timeLength, track.timeLength) && Objects.equals(suffix, track.suffix);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, file, timeLength);
+        return Objects.hash(super.hashCode(), name, file, timeLength, suffix);
     }
 }

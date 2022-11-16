@@ -37,7 +37,7 @@ public class UploadService {
 
         //创建目录
 //        String uploadPath = "src/main/resources/music";
-        String uploadPath = "music";
+        String uploadPath = "src/main/resources/static/music";
 //        File uploadDir = new File(uploadPath);
 //        if(!uploadDir.exists())
 //        {
@@ -83,6 +83,7 @@ public class UploadService {
         info.put("status",Constants.FILE_SUCCESS);
         info.put("file",uuid);
         info.put("timeLength",timeLength);
+        info.put("suffix", suffix);
 
         return info;
     }

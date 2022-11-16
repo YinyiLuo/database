@@ -75,9 +75,15 @@ public class ArtistController {
 
     //管理员可以删除artist
     @DeleteMapping("/artist/removeArtist/{id}")
-    public  AjaxResult removeArtist(@PathVariable("id") Long id)
+    public AjaxResult removeArtist(@PathVariable("id") Long id)
     {
         artistRepository.deleteById(id);
         return AjaxResult.success();
+    }
+
+    @GetMapping("/artist/findByTrackId/{id}")
+    public AjaxResult findByTrackId(@PathVariable("id") Long id)
+    {
+        return AjaxResult.success(artistRepository.findByTrackId(id));
     }
 }

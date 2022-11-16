@@ -2,21 +2,16 @@ package com.dbdev.music.controller;
 
 import com.dbdev.music.core.AjaxResult;
 import com.dbdev.music.domain.Track;
-import com.dbdev.music.domain.TrackWithExtraInfo;
-import com.dbdev.music.body.TrackInfo;
 import com.dbdev.music.repository.TrackRepository;
-import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PostUpdate;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.List;
-import java.util.Optional;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 
@@ -54,7 +49,7 @@ public class TrackController {
     @GetMapping("/track/findTracksByNameLike/{name}/{page}/{size}")
     public AjaxResult findTracksByNameLike(@PathVariable("name") String name, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findTracksByNameLike");
-        var byName = trackRepository.findByNameLike( "%" + name + "%", PageRequest.of(page, size));
+        var byName = trackRepository.findByNameLike("%" + name + "%", PageRequest.of(page, size));
         return AjaxResult.success(byName);
     }
 
@@ -88,24 +83,42 @@ public class TrackController {
 
     //管理员可以删除track
     @DeleteMapping("/track/removeTrack/{id}")
-    public  AjaxResult removeTrack(@PathVariable("id") Long id)
-    {
+    public AjaxResult removeTrack(@PathVariable("id") Long id) {
         trackRepository.deleteById(id);
         return AjaxResult.success();
     }
 
     //获取歌曲文件
-    @GetMapping("/track/getSongFile/{name}")
-    public File getSongFile(@PathVariable("name") String name)
-    {
-        Track track = trackRepository.findByName(name);
-        File fileDir = new File("music");
+    @GetMapping(value = "/track/getSongFile/{uuid}", produces = {"audio/*;charset=utf8"})
+    public void getSongFile(@PathVariable("uuid") UUID file, HttpServletResponse response) {
+        Track track = trackRepository.findByFile(file);
+        File fileDir = new File("src/main/resources/static/music");
         File[] files = fileDir.listFiles();
         assert files != null;
         for (File f : files) {
-            if (f.getName().substring(0, f.getName().lastIndexOf(".")).equals(track.getFile().toString()))
-                return f;
+            if (f.getName().substring(0, f.getName().lastIndexOf(".")).equals(track.getFile().toString())) {
+                response.setContentType("audio/*;charset=utf8");
+                long start = 0L;
+                long end = f.length();
+                response.setHeader("access-control-expose-headers", "Content-Range");
+                response.setHeader("Content-Range",
+                        "bytes " + start + "-" + (start + end - 1) + "/" + end);
+                response.setHeader("Content-Disposition", "attachment;fileName=" + f.getName());
+                response.setHeader("Content-Length", "" + (end - start));
+                try (
+                        FileInputStream is = new FileInputStream(f);
+                        ServletOutputStream os = response.getOutputStream();
+                ) {
+                    int len;
+                    byte[] b = new byte[1024];
+                    while ((len = is.read(b)) != -1)
+                        os.write(b, 0, len);
+                    return;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
         }
-        return null;
     }
 }

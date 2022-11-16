@@ -39,4 +39,8 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
     @Query("select arti from Artist arti join Make mk on arti.id=mk.artistId join Album al on al.id=mk.albumId " +
             "where mk.albumId=?1 and al.checked=true")
     Artist findByAlbumId(Long albumId);
+
+    @Query("select arti from Artist arti join Make mk on arti.id=mk.artistId join Album al on al.id=mk.albumId " +
+            "join BelongTo bl on al.id=bl.albumId where bl.trackId=?1 and al.checked=true")
+    Artist findByTrackId(Long trackId);
 }

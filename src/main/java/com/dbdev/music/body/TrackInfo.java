@@ -12,4 +12,5 @@ import lombok.*;
 public class TrackInfo {
     private String name;
     private String timeLength;
+    private String suffix;
 }

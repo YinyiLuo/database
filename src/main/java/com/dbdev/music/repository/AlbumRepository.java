@@ -37,7 +37,7 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
     Page<List<AlbumWithExtraInfo>> findWithExtraInfoByNameLikeAndCheckedIsTrue(String name, PageRequest pageRequest);
 
     @Query("select al from Album al join Make mk on al.id=mk.albumId where mk.artistId=?1 and al.checked=true")
-    Page<List<Track>> findContainedAlbumsByArtistId(Long id, PageRequest pageRequest);
+    Page<List<Album>> findContainedAlbumsByArtistId(Long id, PageRequest pageRequest);
 
     List<Album> findByCheckedIsFalse();
 }

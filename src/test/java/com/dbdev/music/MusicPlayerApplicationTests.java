@@ -18,10 +18,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.util.UUID;
 
 @SpringBootTest
 class MusicPlayerApplicationTests {
+	@Autowired
+	HttpServletResponse response;
 
 	@Autowired
 	SysUserRepository sysUserRepository;
@@ -103,13 +107,13 @@ class MusicPlayerApplicationTests {
 	@Test
 	void contextLoads() {
 		String password = passwordEncoder.encode("password1");
-		sysUserRepository.save(
-				SysUser.builder()
-						.name("zhangsan")
-						.password(password)
-						.role("ROLE_STUDENT")
-						.build()
-		);
+//		sysUserRepository.save(
+//				SysUser.builder()
+//						.name("zhangsan")
+//						.password(password)
+//						.role("ROLE_STUDENT")
+//						.build()
+//		);
 	}
 
 	@Test
@@ -125,7 +129,7 @@ class MusicPlayerApplicationTests {
 
 	@Test
 	void testNew() throws Exception {
-		System.out.println(trackController.getSongFile("爸爸去哪儿"));
+//		System.out.println(trackController.getSongFile(UUID.fromString("98064504-ae9b-42f0-8392-6fe9cef9ba34"), response));
 //		System.out.println(objectMapper.writeValueAsString(checkController.getAllUnchecked()));
 //		System.out.println(objectMapper.writeValueAsString(
 //				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))

@@ -87,6 +87,7 @@ public class UploadController {
                                 .name(trackNames[i++])
                                 .timeLength((String) info.get("timeLength"))
                                 .file((UUID) info.get("file"))
+                                .suffix((String) info.get("suffix"))
                                 .build()
                 ).getId();
 

@@ -11,9 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public interface TrackRepository extends JpaRepository<Track, Long> {
-    Track findByName(String name);
+    Track findByFile(UUID file);
 
     Page<List<Track>> findByNameLike(String name, Pageable pageable);
 
