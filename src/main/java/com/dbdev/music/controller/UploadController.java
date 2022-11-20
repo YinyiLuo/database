@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
@@ -35,49 +36,41 @@ public class UploadController {
 
     @Autowired
     private MakeRepository makeRepository;
+
     @PostMapping("/uploadTrack")
     public AjaxResult uploadFile(HttpServletRequest request,
                                  @RequestParam("file") MultipartFile[] files,
                                  @RequestParam("trackNames") String[] trackNames,
                                  @RequestParam("albumName") String albumName,
-                                 @RequestParam("description") String description) throws IOException
-    {
+                                 @RequestParam("description") String description) throws IOException {
 
-        boolean checked;
+        boolean check;
         String r = tokenService.getLoginUser(request).getSysUser().getRole();
-        if(r.equals("ROLE_ADMIN"))
-        {
-            checked=true;
-        }
-        else checked = false;
+        if (r.equals("ROLE_ADMIN")) {
+            check = true;
+        } else check = false;
 
         Long userId = tokenService.getLoginUser(request).getSysUser().getId();
         String username = tokenService.getLoginUser(request).getSysUser().getName();
-        int i=0;
-        for (MultipartFile file: files)
-        {
-            HashMap<String,Object> info = uploadService.uploadFile(file);
+        int i = 0;
+        for (MultipartFile file : files) {
+            HashMap<String, Object> info = uploadService.uploadFile(file);
 
-            if((int) info.get("status") == Constants.FILE_ERROR)
-            {
+            if ((int) info.get("status") == Constants.FILE_ERROR) {
                 return AjaxResult.error(info.get("error").toString());
-            }
-            else
-            {
+            } else {
                 //查询id 如果不存在 就新建一个album
                 Album album = albumRepository.findByName(albumName);
-                Long aId=-1L;
-                if(album==null)
-                {
-                    aId=albumRepository.save(
+                Long aId = -1L;
+                if (album == null) {
+                    aId = albumRepository.save(
                             Album.builder()
                                     .name(albumName)
                                     .description(description)
+                                    .checked(check)
                                     .build()
                     ).getId();
-                }
-                else
-                {
+                } else {
                     aId = album.getId();
                 }
 
@@ -87,7 +80,7 @@ public class UploadController {
                                 .name(trackNames[i++])
                                 .timeLength((String) info.get("timeLength"))
                                 .file((UUID) info.get("file"))
-                                .suffix((String) info.get("suffix"))
+                                .suffix(((String) info.get("suffix")).substring(1))
                                 .build()
                 ).getId();
 
@@ -100,15 +93,12 @@ public class UploadController {
 
                 //添加艺术家的make信息
                 //如果不存在这个艺术家则创建一个新的
-                Optional<Artist> byId = artistRepository.findById(userId);
+                Artist byId = artistRepository.findByUserId(userId);
                 Artist artist;
-                if(byId.isPresent())
-                {
-                    artist = byId.get();
-                }
-                else
-                {
-                    artist=artistRepository.save(
+                if (byId != null) {
+                    artist = byId;
+                } else {
+                    artist = artistRepository.save(
                             Artist.builder()
                                     .name(username)
                                     .userId(tokenService.getLoginUser(request).getSysUser().getId())
@@ -131,8 +121,7 @@ public class UploadController {
 
 
     @PostMapping("/uploadImg")
-    public AjaxResult uploadImg(HttpServletRequest request, @RequestParam("file") MultipartFile file)throws IOException
-    {
+    public AjaxResult uploadImg(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException {
         //对应数据库未讨论
         uploadService.uploadImg(file);
         return AjaxResult.success();

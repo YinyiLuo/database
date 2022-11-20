@@ -1,5 +1,6 @@
 package com.dbdev.music;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableTransactionManagement
-public class MusicPlayerApplication extends SpringBootServletInitializer {
+@Slf4j
+public class MusicPlayerApplication extends SpringBootServletInitializer
+{
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(MusicPlayerApplication.class);

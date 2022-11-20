@@ -75,7 +75,7 @@ public class CommentController {
     }
 
     //用户可以删除自己的comment
-    @DeleteMapping("/comment/operateLike/{id}")
+    @DeleteMapping("/comment/removeComment/{id}")
     public AjaxResult removeComment(@PathVariable("id") Long id)
     {
         commentRepository.deleteById(id);

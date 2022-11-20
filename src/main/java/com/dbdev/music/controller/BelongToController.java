@@ -22,7 +22,7 @@ public class BelongToController {
     @GetMapping("/belong_to/findBelongToByTrackId/{trackId}/{page}/{size}")
     public AjaxResult findBelongToByTrackId(@PathVariable("trackId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
         System.out.println("findBelongToByTrackId");
-        var byId = belongtoRepository.findByTrackId(id, PageRequest.of(page, size));
+        var byId = belongtoRepository.findByTrackId(id);
         return AjaxResult.success(byId);
     }
 

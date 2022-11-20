@@ -1,43 +1,46 @@
 package com.dbdev.music.service;
 
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.ObjectUtil;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
+
 import com.dbdev.music.constant.Constants;
+
 @Service
 public class UploadService {
 
-    public HashMap<String,Object> uploadFile(MultipartFile file) throws IOException
-    {
+    public HashMap<String, Object> uploadFile(MultipartFile file) throws IOException {
         //利用一个hash表来存一些想要的信息
-        HashMap<String,Object> info = new HashMap<String,Object>();
-        if(ObjectUtil.isEmpty(file))
-        {
+        HashMap<String, Object> info = new HashMap<String, Object>();
+        if (ObjectUtil.isEmpty(file)) {
             System.out.println("错误!文件为空");
-            info.put("status",Constants.FILE_ERROR);
-            info.put("error","错误!文件为空");
+            info.put("status", Constants.FILE_ERROR);
+            info.put("error", "错误!文件为空");
             return info;
         }
 
-        if(!file.getContentType().startsWith("audio/"))
-        {
+        if (!file.getContentType().startsWith("audio/")) {
             System.out.println("文件类型不符");
             System.out.println(file.getContentType());
-            info.put("status",Constants.FILE_ERROR);
-            info.put("error","文件类型不符");
+            info.put("status", Constants.FILE_ERROR);
+            info.put("error", "文件类型不符");
             return info;
         }
 
         //创建目录
 //        String uploadPath = "src/main/resources/music";
-        String uploadPath = "src/main/resources/static/music";
+        String uploadPath = ResourceUtils.getURL("classpath:").getPath() + "static/music";
+        System.out.println(uploadPath);
 //        File uploadDir = new File(uploadPath);
 //        if(!uploadDir.exists())
 //        {
@@ -46,88 +49,80 @@ public class UploadService {
 
         //创建唯一的文件名
         UUID uuid = UUID.randomUUID();
-        String filename= uuid.toString();
+        String filename = uuid.toString();
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 
-        File f = new File(new File(uploadPath).getAbsolutePath()+"/"+filename+suffix);
-        if(!f.getParentFile().exists())
-        {
+        File f = new File(new File(uploadPath).getAbsolutePath() + "/" + filename + suffix);
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdir();
         }
         //保存文件
         try {
             file.transferTo(f);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("文件保存异常");
-            info.put("status",Constants.FILE_ERROR);
-            info.put("error","文件保存异常");
+            info.put("status", Constants.FILE_ERROR);
+            info.put("error", "文件保存异常");
             return info;
         }
         //计算长度
-        String timeLength="";
-        try {
-            MP3File mp3File = (MP3File) AudioFileIO.read(f);
-            MP3AudioHeader audioHeader = (MP3AudioHeader) mp3File.getAudioHeader();
-            System.out.println("时长:" + Float.parseFloat(audioHeader.getTrackLength() + ""));
-            timeLength = audioHeader.getTrackLength()+"";
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+//        String timeLength = "";
+//        try {
+//            MP3File mp3File = (MP3File) AudioFileIO.read(f);
+//            MP3AudioHeader audioHeader = (MP3AudioHeader) mp3File.getAudioHeader();
+//            System.out.println("时长:" + Float.parseFloat(audioHeader.getTrackLength() + ""));
+//            timeLength = audioHeader.getTrackLength() + "";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         System.out.println("文件保存成功");
 
-        info.put("status",Constants.FILE_SUCCESS);
-        info.put("file",uuid);
-        info.put("timeLength",timeLength);
+        info.put("status", Constants.FILE_SUCCESS);
+        info.put("file", uuid);
+//        info.put("timeLength", timeLength);
         info.put("suffix", suffix);
 
         return info;
     }
 
 
-    public HashMap<String,Object> uploadImg(MultipartFile file) throws IOException
-    {
-        HashMap<String,Object> info = new HashMap<String,Object>();
-        if(ObjectUtil.isEmpty(file))
-        {
+    public HashMap<String, Object> uploadImg(MultipartFile file) throws IOException {
+        HashMap<String, Object> info = new HashMap<String, Object>();
+        if (ObjectUtil.isEmpty(file)) {
             System.out.println("错误!文件为空");
-            info.put("status",Constants.FILE_ERROR);
-            info.put("error","错误!文件为空");
+            info.put("status", Constants.FILE_ERROR);
+            info.put("error", "错误!文件为空");
             return info;
         }
         //创建目录
         String uploadPath = "src/main/resources/img";
         File uploadDir = new File(uploadPath);
-        if(!uploadDir.exists())
-        {
+        if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
 
         //创建唯一的文件名
         UUID uuid = UUID.randomUUID();
-        String filename= uuid.toString();
+        String filename = uuid.toString();
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 
-        File f = new File(uploadPath+"\\"+filename+suffix);
+        File f = new File(uploadPath + "\\" + filename + suffix);
         //保存文件
         try {
             file.transferTo(f);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("文件保存异常");
-            info.put("status",Constants.FILE_ERROR);
-            info.put("error","文件保存异常");
+            info.put("status", Constants.FILE_ERROR);
+            info.put("error", "文件保存异常");
             return info;
         }
 
         System.out.println("文件保存成功");
-        info.put("status",Constants.FILE_SUCCESS);
-        info.put("file",uuid);
+        info.put("status", Constants.FILE_SUCCESS);
+        info.put("file", uuid);
         return info;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BelongToRepository extends JpaRepository<BelongTo, Long> {
-    Page<BelongTo> findByTrackId(Long trackId, Pageable pageable);
+    BelongTo findByTrackId(Long trackId);
 
     Page<List<BelongTo>> findByAlbumId(Long albumId, Pageable pageable);
 }

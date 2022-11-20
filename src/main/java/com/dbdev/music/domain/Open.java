@@ -3,7 +3,13 @@ package com.dbdev.music.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.domain.Sort;
+
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -21,7 +27,8 @@ public class Open extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long albumId;
 
-    private int indexLastPlayedTrack;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp latestDateTimePlaybackBegan;
 
     @Override
     public boolean equals(Object o) {
@@ -29,11 +36,11 @@ public class Open extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Open open = (Open) o;
-        return userId.equals(open.userId) && albumId.equals(open.albumId) && indexLastPlayedTrack == open.indexLastPlayedTrack;
+        return Objects.equals(userId, open.userId) && Objects.equals(albumId, open.albumId) && Objects.equals(latestDateTimePlaybackBegan, open.latestDateTimePlaybackBegan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), userId, albumId, indexLastPlayedTrack);
+        return Objects.hash(super.hashCode(), userId, albumId, latestDateTimePlaybackBegan);
     }
 }

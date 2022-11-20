@@ -1,25 +1,52 @@
 package com.dbdev.music.controller;
 
+import com.dbdev.music.body.ListenInfo;
+import com.dbdev.music.body.OpenInfo;
 import com.dbdev.music.core.AjaxResult;
+import com.dbdev.music.domain.BelongTo;
+import com.dbdev.music.domain.Listen;
+import com.dbdev.music.domain.SysUser;
 import com.dbdev.music.domain.Track;
-import com.dbdev.music.repository.TrackRepository;
+import com.dbdev.music.repository.*;
+import com.dbdev.music.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
 @RestController
 public class TrackController {
-
     @Autowired
     private TrackRepository trackRepository;
+
+    @Autowired
+    private BelongToRepository belongToRepository;
+
+    @Autowired
+    private OpenRepository openRepository;
+
+    @Autowired
+    private OpenController openController;
+
+    @Autowired
+    private ListenRepository listenRepository;
+
+    @Autowired
+    private ListenController listenController;
+
+    @Autowired
+    TokenService tokenService;
 
     @GetMapping("/track/getAllTrack/{page}/{size}")
     public AjaxResult getAllTrack(@PathVariable("page") int page, @PathVariable("size") int size) {
@@ -27,10 +54,30 @@ public class TrackController {
     }
 
     @GetMapping("/track/findById/{id}")
-    public AjaxResult findById(@PathVariable("id") Long id) {
+    public AjaxResult findById(@PathVariable("id") Long id, HttpServletRequest request) {
         System.out.println("findTrackById");
-        var byId = trackRepository.findById(id);
-        return AjaxResult.success(byId);
+        var track = trackRepository.findById(id);
+        var userId = tokenService.getLoginUser(request).getSysUser().getId();
+        var albumId = belongToRepository.findByTrackId(id).getAlbumId();
+        var listenTemp = listenRepository.findByUserIdAndTrackId(userId, id);
+        var openTemp = openRepository.findByUserIdAndAlbumId(userId, albumId);
+        if (listenTemp == null)
+            listenController.addListen(new ListenInfo(userId, id, new Timestamp(System.currentTimeMillis())));
+        else {
+            listenRepository.delete(listenTemp);
+            listenTemp.setLatestDateTimePlaybackBegan(new Timestamp(System.currentTimeMillis()));
+            listenRepository.save(listenTemp);
+        }
+        if (openTemp == null)
+            openController.addOpen(new OpenInfo(userId, albumId, new Timestamp(System.currentTimeMillis())));
+        else {
+            openRepository.delete(openTemp);
+            openTemp.setLatestDateTimePlaybackBegan(new Timestamp(System.currentTimeMillis()));
+            openRepository.save(openTemp);
+        }
+        System.out.println(listenRepository.findByUserIdAndTrackId(userId, id).getLatestDateTimePlaybackBegan());
+        System.out.println(openRepository.findByUserIdAndAlbumId(userId, albumId).getLatestDateTimePlaybackBegan());
+        return AjaxResult.success(track);
     }
 
     @GetMapping("/track/findAllWithExtraInfo/{page}/{size}")
@@ -111,12 +158,9 @@ public class TrackController {
                 ) {
                     int len;
                     byte[] b = new byte[1024];
-                    while ((len = is.read(b)) != -1)
-                        os.write(b, 0, len);
-                    return;
+                    while ((len = is.read(b)) != -1)    os.write(b, 0, len);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return;
                 }
             }
         }
