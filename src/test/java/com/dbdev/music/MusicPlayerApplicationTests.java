@@ -1,5 +1,6 @@
 package com.dbdev.music;
 
+import com.dbdev.music.controller.AlbumController;
 import com.dbdev.music.controller.CheckController;
 import com.dbdev.music.controller.CommentController;
 import com.dbdev.music.controller.TrackController;
@@ -49,6 +50,9 @@ class MusicPlayerApplicationTests {
 	CommentController commentController;
 
 	@Autowired
+	AlbumController albumController;
+
+	@Autowired
 	CommentService commentService;
 
 	@Autowired
@@ -60,6 +64,11 @@ class MusicPlayerApplicationTests {
 	@Autowired
 	CheckController checkController;
 
+	@Autowired
+	ListenRepository listenRepository;
+
+	@Autowired
+	OpenRepository openRepository;
 
 	@SuppressWarnings("all")
 	@Autowired
@@ -70,6 +79,11 @@ class MusicPlayerApplicationTests {
 
 	@Value("2135246743@qq.com")
 	String to;
+
+	@Test
+	public void generatePassword() {
+		System.out.println(passwordEncoder.encode("password1"));
+	}
 
 	@Test
 	void testComment() throws Exception {
@@ -116,27 +130,32 @@ class MusicPlayerApplicationTests {
 //		);
 	}
 
-	@Test
-	void testSimpleSend() {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(from);
-		message.setTo(to);
-		message.setSubject("简单邮件");
-		message.setText("您的验证码为123456");
-		System.out.println(message);
-		mailSender.send(message);
-	}
+//	@Test
+//	void testSimpleSend() {
+//		SimpleMailMessage message = new SimpleMailMessage();
+//		message.setFrom(from);
+//		message.setTo(to);
+//		message.setSubject("简单邮件");
+//		message.setText("您的验证码为123456");
+//		System.out.println(message);
+//		mailSender.send(message);
+//	}
 
 	@Test
 	void testNew() throws Exception {
+//		System.out.println(objectMapper.writeValueAsString(albumController.removeAlbum(1579857861113155584L)));
+//		System.out.println(objectMapper.writeValueAsString(listenRepository
+//				.findByUserId(1571829035812655104L, PageRequest.of(0, 10))));
+//		System.out.println(objectMapper.writeValueAsString(openRepository
+//				.findByUserId(1571829035812655104L, PageRequest.of(0, 10))));
 //		System.out.println(trackController.getSongFile(UUID.fromString("98064504-ae9b-42f0-8392-6fe9cef9ba34"), response));
 //		System.out.println(objectMapper.writeValueAsString(checkController.getAllUnchecked()));
 //		System.out.println(objectMapper.writeValueAsString(
 //				commentService.getComments(Long.parseLong("2"), PageRequest.of(0, 5))
 //		));
-//		System.out.println(objectMapper.writeValueAsString(
-//				albumRepository.findAllWithExtraInfo(PageRequest.of(0, 5))
-//		));
+		System.out.println(objectMapper.writeValueAsString(
+				albumRepository.findAllWithExtraInfoAndCheckedIsTrue(PageRequest.of(0, 10))
+		));
 //		System.out.println(objectMapper.writeValueAsString(
 //				artistRepository.findWithExtraInfoByNameLike("杰", PageRequest.of(0, 5))
 //		));
