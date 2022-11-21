@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import javax.persistence.Entity;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 
@@ -21,7 +22,8 @@ public class Collect extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long albumId;
 
-    private String collectedTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp collectedTime;
 
     @Override
     public boolean equals(Object o) {

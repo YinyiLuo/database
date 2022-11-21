@@ -37,7 +37,7 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
             "from Track tc join BelongTo bl on tc.id=bl.trackId " +
             "join Album al on al.id=bl.albumId join Make mk on al.id=mk.albumId " +
             "join Artist atst on atst.id=mk.artistId where tc.name like %?1% and al.checked=true")
-    Page<List<TrackWithExtraInfo>> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);
+    Page<TrackWithExtraInfo> findWithExtraInfoByNameLike(String name, PageRequest pageRequest);
 
     @Query("select tc from Track tc join BelongTo bl on tc.id=bl.trackId where bl.albumId=?1")
     Page<Track> findContainedTracksByAlbumId(Long id, PageRequest pageRequest);

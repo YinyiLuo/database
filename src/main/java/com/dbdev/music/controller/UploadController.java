@@ -61,18 +61,14 @@ public class UploadController {
             } else {
                 //查询id 如果不存在 就新建一个album
                 Album album = albumRepository.findByName(albumName);
-                Long aId = -1L;
-                if (album == null) {
-                    aId = albumRepository.save(
-                            Album.builder()
-                                    .name(albumName)
-                                    .description(description)
-                                    .checked(check)
-                                    .build()
-                    ).getId();
-                } else {
-                    aId = album.getId();
-                }
+                Long aId;
+                aId = Objects.requireNonNullElseGet(album, () -> albumRepository.save(
+                        Album.builder()
+                                .name(albumName)
+                                .description(description)
+                                .checked(check)
+                                .build()
+                )).getId();
 
                 //保存track信息到数据库
                 Long tId = trackRepository.save(
@@ -95,17 +91,13 @@ public class UploadController {
                 //如果不存在这个艺术家则创建一个新的
                 Artist byId = artistRepository.findByUserId(userId);
                 Artist artist;
-                if (byId != null) {
-                    artist = byId;
-                } else {
-                    artist = artistRepository.save(
-                            Artist.builder()
-                                    .name(username)
-                                    .userId(tokenService.getLoginUser(request).getSysUser().getId())
-                                    .build()
-                    );
+                artist = Objects.requireNonNullElseGet(byId, () -> artistRepository.save(
+                        Artist.builder()
+                                .name(username)
+                                .userId(tokenService.getLoginUser(request).getSysUser().getId())
+                                .build()
+                ));
 
-                }
                 makeRepository.save(
                         Make.builder()
                                 .albumId(aId)

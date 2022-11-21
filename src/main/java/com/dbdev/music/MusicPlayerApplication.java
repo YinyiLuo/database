@@ -15,10 +15,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Slf4j
 public class MusicPlayerApplication extends SpringBootServletInitializer
 {
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(MusicPlayerApplication.class);
-	}
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		return builder.sources(MusicPlayerApplication.class);
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(MusicPlayerApplication.class, args);

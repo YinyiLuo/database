@@ -5,9 +5,11 @@ import com.dbdev.music.domain.Album;
 import com.dbdev.music.body.AlbumInfo;
 import com.dbdev.music.domain.Artist;
 import com.dbdev.music.domain.Make;
+import com.dbdev.music.domain.Track;
 import com.dbdev.music.repository.AlbumRepository;
 import com.dbdev.music.repository.ArtistRepository;
 import com.dbdev.music.repository.MakeRepository;
+import com.dbdev.music.repository.TrackRepository;
 import com.dbdev.music.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class AlbumController {
@@ -30,6 +33,9 @@ public class AlbumController {
 
     @Autowired
     private ArtistRepository artistRepository;
+
+    @Autowired
+    private TrackRepository trackRepository;
 
     @Autowired
     private TokenService tokenService;
@@ -115,12 +121,17 @@ public class AlbumController {
     }
 
 
-    //管理员可以删除album
+    // 管理员可以删除album
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/album/removeAlbum/{id}")
-    public  AjaxResult removeAlbum(@PathVariable("id") Long id)
+    @DeleteMapping("/album/removeAlbum/{albumId}")
+    public AjaxResult removeAlbum(@PathVariable("albumId") Long albumId)
     {
-        albumRepository.deleteById(id);
-        return AjaxResult.success();
+        List<Track> containedTracks = trackRepository.
+                findContainedTracksByAlbumId(albumId, PageRequest.of(0, 999)).getContent();
+        for (Track track : containedTracks) {
+            trackRepository.deleteById(track.getId());
+        }
+        albumRepository.deleteById(albumId);
+        return AjaxResult.success("删除成功");
     }
 }

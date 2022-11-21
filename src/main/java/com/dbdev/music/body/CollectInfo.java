@@ -2,6 +2,8 @@ package com.dbdev.music.body;
 
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,5 +14,5 @@ import lombok.*;
 public class CollectInfo {
     private Long userId;
     private Long albumId;
-    private String collectedTime;
+    private Timestamp collectedTime;
 }

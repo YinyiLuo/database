@@ -27,8 +27,8 @@ public class ListenController {
     }
 
     @GetMapping("/listen/findListens/{page}/{size}")
-    public AjaxResult findListenByUserId(HttpServletRequest request, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findListenByUserId");
+    public AjaxResult findListens(HttpServletRequest request, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findListens");
         var byId = listenRepository.findByUserId(tokenService.getLoginUser(request)
                 .getSysUser().getId(), PageRequest.of(page, size, ListenWithExtraInfo.sort));
         return AjaxResult.success(byId);

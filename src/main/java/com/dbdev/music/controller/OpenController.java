@@ -27,8 +27,8 @@ public class OpenController {
     }
 
     @GetMapping("/open/findOpens/{page}/{size}")
-    public AjaxResult findOpenByUserId(HttpServletRequest request, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByUserId");
+    public AjaxResult findOpens(HttpServletRequest request, @PathVariable("page") int page, @PathVariable("size") int size) {
+        System.out.println("findOpens");
         var byId = openRepository.findByUserId(tokenService.getLoginUser(request)
                 .getSysUser().getId(), PageRequest.of(page, size, OpenWithExtraInfo.sort));
         return AjaxResult.success(byId);
@@ -36,7 +36,7 @@ public class OpenController {
 
     @GetMapping("/open/findOpenByAlbumId/{albumId}/{page}/{size}")
     public AjaxResult findOpenByAlbumId(@PathVariable("albumId") Long id, @PathVariable("page") int page, @PathVariable("size") int size) {
-        System.out.println("findCollectByAlbumId");
+        System.out.println("findOpenByAlbumId");
         var byId = openRepository.findByAlbumId(id, PageRequest.of(page, size));
         return AjaxResult.success(byId);
     }
